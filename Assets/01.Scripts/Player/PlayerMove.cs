@@ -9,21 +9,18 @@ public class PlayerMove : MonoBehaviour
 
     private Animator anim = null;
     private SpriteRenderer spriteRenderer;
+    private Rigidbody2D rigid;
 
     private void Start()
     {
+        rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         Move();
-
-        if(DateTime.Now.Hour == 24)
-        {
-            Debug.LogError("»¡·¡");
-        }
     }
 
     private void Move()
@@ -52,6 +49,7 @@ public class PlayerMove : MonoBehaviour
             anim.SetBool("isMove", false);
         }
 
-        transform.position += dir * _speed * Time.deltaTime;
+        //transform.position += dir * _speed * Time.deltaTime;
+        rigid.MovePosition(transform.position + dir * _speed * Time.deltaTime);
     }
 }
