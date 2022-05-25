@@ -7,10 +7,10 @@ public class PlayerMove : MonoBehaviour
 {
     [SerializeField] private float _speed = 5f;
 
+    private Rigidbody2D _rigid;
     private Animator _anim = null;
     private SpriteRenderer _playerSprite;
-    private SpriteRenderer _gunSprite;
-    private Rigidbody2D _rigid;
+    private Vector3 dir = Vector3.zero;
 
     private void Start()
     {
@@ -19,17 +19,18 @@ public class PlayerMove : MonoBehaviour
         _anim = GetComponent<Animator>();
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         Move();
     }
+
 
     private void Move()
     {
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
 
-        Vector3 dir = new Vector3(x, y, 0);
+        dir = new Vector3(x, y, 0);
         dir.Normalize();
 
         if(x > 0)
@@ -50,7 +51,6 @@ public class PlayerMove : MonoBehaviour
             _anim.SetBool("isMove", false);
         }
 
-        //transform.position += dir * _speed * Time.deltaTime;
         _rigid.MovePosition(transform.position + dir * _speed * Time.deltaTime);
     }
 }

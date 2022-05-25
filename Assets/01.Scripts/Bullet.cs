@@ -4,23 +4,32 @@ using UnityEngine;
 
 public class Bullet : PoolableMono
 {
-    [SerializeField] private float _bulletSpeed = 5f;
-
+    [SerializeField] private float _bulletForce = 5f;
+    
     private Rigidbody2D _bulletRigid;
-    private Vector3 _mousePos;
-    private float _bulletAngle;
 
     public override void Reset()
     {
 
     }
 
-    private void Start()
+    private void OnEnable()
     {
         _bulletRigid = GetComponent<Rigidbody2D>();
-        _mousePos = Input.mousePosition;
-        _bulletAngle = (float)Mathf.Atan2(_mousePos.y - transform.position.y, _mousePos.x - transform.position.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(_bulletAngle, Vector3.forward);
-        _bulletRigid.AddForce(_mousePos * _bulletSpeed, ForceMode2D.Impulse);
+
+        //_bulletRigid.AddForce(Vector2.right * _bulletForce, ForceMode2D.Impulse);
+    }
+
+    private void Update()
+    {
+        transform.Translate(Vector3.right * _bulletForce * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Wall") || collision.CompareTag("Door"))
+        {
+            PoolManager.Instance.Push(this);
+        }
     }
 }

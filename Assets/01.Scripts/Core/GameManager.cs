@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
         PoolManager.Instance = new PoolManager(transform);
         foreach(PoolableMono p in _poolingList)
         {
-            PoolManager.Instance.CreatePool(p, 40);
+            PoolManager.Instance.CreatePool(p, 10);
         }
     }
 }

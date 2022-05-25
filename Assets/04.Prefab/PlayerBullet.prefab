@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7651387672418838380}
   - component: {fileID: 7651387672418838369}
   - component: {fileID: 7651387672418838370}
+  - component: {fileID: -4843588429049809141}
   m_Layer: 0
   m_Name: PlayerBullet
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7651387672418838381}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.32, y: 0.26, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -117,4 +118,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 912f1ce9a6afe6e439567e12c3b8736b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletSpeed: 1
+  _bulletForce: 10
+--- !u!58 &-4843588429049809141
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7651387672418838381}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.17359146, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.4201585

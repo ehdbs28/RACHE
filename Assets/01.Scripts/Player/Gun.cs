@@ -9,6 +9,7 @@ public class Gun : MonoBehaviour
 
     private float _angle;
     private Vector2 _mousePoint;
+    private Action OnExplosion;
 
     private void Update()
     {
@@ -29,6 +30,7 @@ public class Gun : MonoBehaviour
         {
             Bullet bullet = PoolManager.Instance.Pop("PlayerBullet") as Bullet;
             bullet.transform.position = _bulletPos.position;
+            bullet.transform.rotation = _bulletPos.rotation;
         }
     }
 }
