@@ -7,15 +7,16 @@ public class PlayerMove : MonoBehaviour
 {
     [SerializeField] private float _speed = 5f;
 
-    private Animator anim = null;
-    private SpriteRenderer spriteRenderer;
-    private Rigidbody2D rigid;
+    private Animator _anim = null;
+    private SpriteRenderer _playerSprite;
+    private SpriteRenderer _gunSprite;
+    private Rigidbody2D _rigid;
 
     private void Start()
     {
-        rigid = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        anim = GetComponent<Animator>();
+        _rigid = GetComponent<Rigidbody2D>();
+        _playerSprite = GetComponent<SpriteRenderer>();
+        _anim = GetComponent<Animator>();
     }
 
     private void LateUpdate()
@@ -33,23 +34,23 @@ public class PlayerMove : MonoBehaviour
 
         if(x > 0)
         {
-            spriteRenderer.flipX = false;
+            _playerSprite.flipX = false;
         }
         else if(x < 0)
         {
-            spriteRenderer.flipX = true;
+            _playerSprite.flipX = true;
         }
 
         if(x != 0 || y != 0)
         {
-            anim.SetBool("isMove", true);
+            _anim.SetBool("isMove", true);
         }
         else
         {
-            anim.SetBool("isMove", false);
+            _anim.SetBool("isMove", false);
         }
 
         //transform.position += dir * _speed * Time.deltaTime;
-        rigid.MovePosition(transform.position + dir * _speed * Time.deltaTime);
+        _rigid.MovePosition(transform.position + dir * _speed * Time.deltaTime);
     }
 }
