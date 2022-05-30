@@ -8,7 +8,6 @@ public class Gun : MonoBehaviour
     [SerializeField] private Transform _bulletPos;
 
     private float _angle;
-    private Vector2 _mousePoint;
     private Action OnExplosion;
 
     private void Update()
@@ -19,8 +18,7 @@ public class Gun : MonoBehaviour
 
     private void FollowMouse()
     {
-        _mousePoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        _angle = (float)Math.Atan2(_mousePoint.y - transform.position.y, _mousePoint.x - transform.position.x) * Mathf.Rad2Deg;
+        _angle = (float)Math.Atan2(MouseCursor.Instance.MousePos.y - transform.position.y, MouseCursor.Instance.MousePos.x - transform.position.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(_angle, Vector3.forward);
     }
 

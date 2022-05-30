@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerMove : MonoBehaviour
     private Animator _anim = null;
     private SpriteRenderer _playerSprite;
     private Vector3 dir = Vector3.zero;
+    private bool _isFlash = false;
 
     private void Start()
     {
@@ -22,35 +24,48 @@ public class PlayerMove : MonoBehaviour
     private void Update()
     {
         Move();
+        Flash();
     }
 
+    private void Flash()
+    {
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            Vector2 mousePos = new Vector2(MouseCursor.Instance.MousePos.x, MouseCursor.Instance.MousePos.y);
+
+            _rigid.DOMove(mousePos, 0.5f);
+        }
+    }
 
     private void Move()
     {
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
-
-        dir = new Vector3(x, y, 0);
-        dir.Normalize();
-
-        if(x > 0)
+        if (!_isFlash)
         {
-            _playerSprite.flipX = false;
-        }
-        else if(x < 0)
-        {
-            _playerSprite.flipX = true;
-        }
+            float x = Input.GetAxisRaw("Horizontal");
+            float y = Input.GetAxisRaw("Vertical");
 
-        if(x != 0 || y != 0)
-        {
-            _anim.SetBool("isMove", true);
-        }
-        else
-        {
-            _anim.SetBool("isMove", false);
-        }
+            dir = new Vector3(x, y, 0);
+            dir.Normalize();
 
-        _rigid.MovePosition(transform.position + dir * _speed * Time.deltaTime);
+            if (x > 0)
+            {
+                _playerSprite.flipX = false;
+            }
+            else if (x < 0)
+            {
+                _playerSprite.flipX = true;
+            }
+
+            if (x != 0 || y != 0)
+            {
+                _anim.SetBool("isMove", true);
+            }
+            else
+            {
+                _anim.SetBool("isMove", false);
+            }
+
+            _rigid.MovePosition(transform.position + dir * _speed * Time.deltaTime);
+        }
     }
 }
