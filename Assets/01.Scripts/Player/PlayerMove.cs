@@ -6,16 +6,28 @@ using DG.Tweening;
 
 public class PlayerMove : MonoBehaviour
 {
-    [SerializeField] private float _speed = 5f;
+    [SerializeField] private float _moveSpeed = 5f;
+    private float _defaultSpeed;
 
     private Rigidbody2D _rigid;
     private Animator _anim = null;
     private SpriteRenderer _playerSprite;
     private Vector3 dir = Vector3.zero;
-    private bool _isFlash = false;
+
+    #region 플레이어 점멸 관련 코드
+    private Vector2 _mousePos;
+    private bool _isDash = false;
+    [SerializeField] private float _dashSpeed;
+    [SerializeField] private float _defaultTime;
+    private float _dashTime;
+
+    private Vector2 _movement;
+    #endregion
 
     private void Start()
     {
+        _defaultSpeed = _moveSpeed;
+
         _rigid = GetComponent<Rigidbody2D>();
         _playerSprite = GetComponent<SpriteRenderer>();
         _anim = GetComponent<Animator>();
@@ -29,17 +41,34 @@ public class PlayerMove : MonoBehaviour
 
     private void Flash()
     {
-        if(Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            Vector2 mousePos = new Vector2(MouseCursor.Instance.MousePos.x, MouseCursor.Instance.MousePos.y);
+        _mousePos = MouseCursor.Instance.MousePos;
+        _movement = new Vector2(_mousePos.x - transform.position.x, _mousePos.y - transform.position.y);
 
-            _rigid.DOMove(mousePos, 0.5f);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _isDash = true;
         }
+
+        if(_dashTime <= 0)
+        {
+            _defaultSpeed = _moveSpeed;
+            if (_isDash)
+            {
+                _dashTime = _defaultTime;
+            }
+        }
+        else
+        {
+            _dashTime -= Time.deltaTime;
+            _defaultSpeed = _dashSpeed;
+            _rigid.AddForce(_movement * _defaultSpeed); //마우스 포지션의 방향만 가져오고 그 방향으로 특정 값만큼 이동하는걸 하고 싶어요 
+        }
+        _isDash = false;
     }
 
     private void Move()
     {
-        if (!_isFlash)
+        if (!_isDash)
         {
             float x = Input.GetAxisRaw("Horizontal");
             float y = Input.GetAxisRaw("Vertical");
@@ -65,7 +94,7 @@ public class PlayerMove : MonoBehaviour
                 _anim.SetBool("isMove", false);
             }
 
-            _rigid.MovePosition(transform.position + dir * _speed * Time.deltaTime);
+            _rigid.MovePosition(transform.position + dir * _defaultSpeed * Time.deltaTime);
         }
     }
 }
