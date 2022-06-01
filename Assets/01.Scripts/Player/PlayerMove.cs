@@ -21,6 +21,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float _defaultTime;
     private float _dashTime;
 
+    private float _rotate;
     private Vector2 _movement;
     #endregion
 
@@ -46,6 +47,7 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            _anim.SetBool("isDash", true);
             _isDash = true;
         }
 
@@ -63,6 +65,7 @@ public class PlayerMove : MonoBehaviour
             _defaultSpeed = _dashSpeed;
             _rigid.AddForce(_movement * _defaultSpeed); //마우스 포지션의 방향만 가져오고 그 방향으로 특정 값만큼 이동하는걸 하고 싶어요 
         }
+        //_anim.SetBool("isDash", false);
         _isDash = false;
     }
 
