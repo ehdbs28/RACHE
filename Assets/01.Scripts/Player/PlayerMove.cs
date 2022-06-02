@@ -14,16 +14,7 @@ public class PlayerMove : MonoBehaviour
     private SpriteRenderer _playerSprite;
     private Vector3 dir = Vector3.zero;
 
-    #region 플레이어 점멸 관련 코드
-    private Vector2 _mousePos;
     private bool _isDash = false;
-    [SerializeField] private float _dashSpeed;
-    [SerializeField] private float _defaultTime;
-    private float _dashTime;
-
-    private float _rotate;
-    private Vector2 _movement;
-    #endregion
 
     private void Start()
     {
@@ -42,9 +33,6 @@ public class PlayerMove : MonoBehaviour
 
     private void Flash()
     {
-        _mousePos = MouseCursor.Instance.MousePos;
-        _movement = new Vector2(_mousePos.x - transform.position.x, _mousePos.y - transform.position.y);
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
             DashEffect dashEffect = PoolManager.Instance.Pop("PlayerDash") as DashEffect;
