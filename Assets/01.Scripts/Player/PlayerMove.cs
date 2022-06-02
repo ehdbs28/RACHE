@@ -47,25 +47,9 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _anim.SetBool("isDash", true);
+            DashEffect dashEffect = PoolManager.Instance.Pop("PlayerDash") as DashEffect;
             _isDash = true;
         }
-
-        if(_dashTime <= 0)
-        {
-            _defaultSpeed = _moveSpeed;
-            if (_isDash)
-            {
-                _dashTime = _defaultTime;
-            }
-        }
-        else
-        {
-            _dashTime -= Time.deltaTime;
-            _defaultSpeed = _dashSpeed;
-            _rigid.AddForce(_movement * _defaultSpeed); //마우스 포지션의 방향만 가져오고 그 방향으로 특정 값만큼 이동하는걸 하고 싶어요 
-        }
-        //_anim.SetBool("isDash", false);
         _isDash = false;
     }
 
