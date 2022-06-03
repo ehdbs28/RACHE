@@ -19,10 +19,17 @@ public class StageManager : MonoBehaviour
     {
         _playerTrm = GameObject.Find("Player").GetComponent<Transform>();
         _blackImage = GameObject.Find("Canvas/StageSkipPanel").GetComponent<RectTransform>();
+
+        StageStart();
     }
 
     private void Update()
     {
+        if(_playerTrm.position.y >= 3.5f)
+        {
+            StageStart();
+        }
+
         //test
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -39,8 +46,8 @@ public class StageManager : MonoBehaviour
         Image img = _blackImage.GetComponent<Image>();
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(img.DOFade(1, 0.2f));
-        seq.Append(img.DOFade(0, 2f));
+        seq.Append(img.DOFade(1, 0.5f));
+        seq.Append(img.DOFade(0, 0.5f));
     }
 
     public void StageStart()
@@ -50,6 +57,9 @@ public class StageManager : MonoBehaviour
 
         _downCloseDoor.SetActive(true);
         _downOpenDoor.SetActive(false);
+        BlackScreen();
+
+        _playerTrm.position = _initPos;
     }
 
     public void StageClear()
@@ -59,9 +69,5 @@ public class StageManager : MonoBehaviour
 
         _downCloseDoor.SetActive(false);
         _downOpenDoor.SetActive(true);
-
-        BlackScreen();
-
-        _playerTrm.position = _initPos;
     }
 }
