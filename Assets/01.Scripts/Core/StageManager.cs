@@ -6,6 +6,15 @@ using DG.Tweening;
 
 public class StageManager : MonoBehaviour
 {
+    public static StageManager Instance;
+
+    private Transform _trmParent;
+
+    public StageManager(Transform trmParent)
+    {
+        _trmParent = trmParent;
+    }
+
     [SerializeField] GameObject _upCloseDoor;
     [SerializeField] GameObject _upOpenDoor;
     [SerializeField] GameObject _downCloseDoor;
@@ -25,7 +34,7 @@ public class StageManager : MonoBehaviour
 
     private void Update()
     {
-        if(_playerTrm.position.y >= 3.5f)
+        if(_playerTrm.position.y >= 5.1f)
         {
             StageStart();
         }

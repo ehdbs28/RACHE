@@ -31,5 +31,11 @@ public class Bullet : PoolableMono
         {
             PoolManager.Instance.Push(this);
         }
+
+        if (collision.CompareTag("Enemy"))
+        {
+            PoolManager.Instance.Push(this);
+            PoolManager.Instance.Push(collision.GetComponent<Enemy>());
+        }
     }
 }

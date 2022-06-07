@@ -21,5 +21,7 @@ public class GameManager : MonoBehaviour
         {
             PoolManager.Instance.CreatePool(p, 10);
         }
+
+        CameraManager.Instance = new CameraManager(transform);
     }
 }
