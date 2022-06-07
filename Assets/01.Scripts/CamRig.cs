@@ -12,15 +12,11 @@ public class CamRig : MonoBehaviour
     private Vector3 _boundMax;
     private Vector3 _boundMin;
     private float _halfWidth;
+    private float _halfHeight;
 
-    public PolygonCollider2D Confiner
+    private void Start()
     {
-        get => _confiner;
-        set
-        {
-            _confiner = value;
-            Calc();
-        }
+        Calc();
     }
 
     private void Calc()
@@ -31,28 +27,20 @@ public class CamRig : MonoBehaviour
         float otho = _cmRigCam.m_Lens.OrthographicSize;
 
         _halfWidth = otho * 16 / 9;
+        _halfHeight = otho;
     }
 
-    private void Update()
+    public void HandleMove(float x, float y, Vector3 dir)
     {
-        HandleMove();
-    }
-
-    private void HandleMove()
-    {
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
-        Vector3 pos = transform.position;
         float minX = _boundMin.x + _halfWidth;
         float maxX = _boundMax.x - _halfWidth;
 
-        float minY = _boundMin.y + _halfWidth;
-        float maxY = _boundMax.y - _halfWidth;
+        float minY = _boundMin.y + _halfHeight;
+        float maxY = _boundMax.y - _halfHeight;
 
-        pos.x = Mathf.Clamp(pos.x + _moveSpeed * x * Time.deltaTime, minX, maxX);
-        pos.y = Mathf.Clamp(pos.y + _moveSpeed * y * Time.deltaTime, minY, maxY);
-
-        transform.position = pos;
+        transform.position += dir * _moveSpeed * Time.deltaTime;
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, minX, maxX),
+            Mathf.Clamp(transform.position.y, minY, maxY));
     }
 }
 

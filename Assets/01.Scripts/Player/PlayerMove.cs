@@ -13,6 +13,7 @@ public class PlayerMove : MonoBehaviour
     private Animator _anim = null;
     private SpriteRenderer _playerSprite;
     private Vector3 dir = Vector3.zero;
+    private CamRig _camrig;
 
     private bool _isDash = false;
 
@@ -23,6 +24,7 @@ public class PlayerMove : MonoBehaviour
         _rigid = GetComponent<Rigidbody2D>();
         _playerSprite = GetComponent<SpriteRenderer>();
         _anim = GetComponent<Animator>();
+        _camrig = GameObject.Find("CamRig").GetComponent<CamRig>();
     }
 
     private void Update()
@@ -50,6 +52,8 @@ public class PlayerMove : MonoBehaviour
 
             dir = new Vector3(x, y, 0);
             dir.Normalize();
+
+            _camrig.HandleMove(x, y, dir);
 
             if (x > 0)
             {

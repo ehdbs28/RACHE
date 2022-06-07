@@ -7,18 +7,19 @@ public class CameraManager : MonoBehaviour
 {
     public static CameraManager Instance;
 
-    private Transform _trmParent;
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+    }
 
     private CinemachineVirtualCamera _cmRigCam;
 
     private CinemachineBasicMultiChannelPerlin _cmRigPerlin = null;
 
     private CamRig _camrig;
-
-    public CameraManager(Transform trmParent)
-    {
-        _trmParent = trmParent;
-    }
 
     public void Init()
     {
