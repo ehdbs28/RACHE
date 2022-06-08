@@ -21,5 +21,9 @@ public class GameManager : MonoBehaviour
         {
             PoolManager.Instance.CreatePool(p, 10);
         }
+
+        GameObject timeController = new GameObject("TimeController");
+        timeController.transform.parent = transform;
+        TimeController.Instance = timeController.AddComponent<TimeController>();
     }
 }

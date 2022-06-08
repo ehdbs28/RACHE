@@ -1,31 +1,31 @@
 fileFormatVersion: 2
-guid: 54df18ea9bd67944b985178accd774d4
+guid: 753727d352bb7754685ca53dcefd54a0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1119696102202878521
-    second: demon-attack-no-breath_0
+      213: 713163285030852893
+    second: 0x72_DungeonTilesetII_v1.4_0
   - first:
-      213: -3021583118361910209
-    second: demon-attack-no-breath_1
+      213: 8178937437051159178
+    second: 0x72_DungeonTilesetII_v1.4_1
   - first:
-      213: -3758352173003776340
-    second: demon-attack-no-breath_2
+      213: -5908182510162382659
+    second: 0x72_DungeonTilesetII_v1.4_2
   - first:
-      213: 4440047075060365722
-    second: demon-attack-no-breath_3
+      213: 2140842894146505812
+    second: 0x72_DungeonTilesetII_v1.4_3
   - first:
-      213: 2775838402845532889
-    second: demon-attack-no-breath_4
+      213: -1395916485779578574
+    second: 0x72_DungeonTilesetII_v1.4_4
   - first:
-      213: 158564056746921763
-    second: demon-attack-no-breath_5
+      213: -5321348085281630725
+    second: 0x72_DungeonTilesetII_v1.4_5
   - first:
-      213: -5957889397408292130
-    second: demon-attack-no-breath_6
+      213: -7148777005419144832
+    second: 0x72_DungeonTilesetII_v1.4_6
   - first:
-      213: 254697773495596123
-    second: demon-attack-no-breath_7
+      213: -4254748507566664220
+    second: 0x72_DungeonTilesetII_v1.4_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: demon-attack-no-breath_0
+      name: 0x72_DungeonTilesetII_v1.4_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 192
-        height: 176
+        x: 21
+        y: 112
+        width: 23
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +153,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 93a213c2ca5f98f00800000000000000
-      internalID: 1119696102202878521
+      spriteID: d195d1faa3aa5e900800000000000000
+      internalID: 713163285030852893
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: demon-attack-no-breath_1
+      name: 0x72_DungeonTilesetII_v1.4_1
       rect:
         serializedVersion: 2
-        x: 192
-        y: 0
-        width: 192
-        height: 176
+        x: 52
+        y: 112
+        width: 23
+        height: 31
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f34a8b2b92e2116d0800000000000000
-      internalID: -3021583118361910209
+      spriteID: a82049fd34c618170800000000000000
+      internalID: 8178937437051159178
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: demon-attack-no-breath_2
+      name: 0x72_DungeonTilesetII_v1.4_2
       rect:
         serializedVersion: 2
-        x: 384
-        y: 0
-        width: 192
-        height: 176
+        x: 85
+        y: 112
+        width: 22
+        height: 31
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,20 +195,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: caeda4b7c96a7dbc0800000000000000
-      internalID: -3758352173003776340
+      spriteID: db078955f4be10ea0800000000000000
+      internalID: -5908182510162382659
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: demon-attack-no-breath_3
+      name: 0x72_DungeonTilesetII_v1.4_3
       rect:
         serializedVersion: 2
-        x: 576
-        y: 0
-        width: 192
-        height: 176
+        x: 115
+        y: 112
+        width: 26
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,20 +216,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a993cf65a473e9d30800000000000000
-      internalID: 4440047075060365722
+      spriteID: 45c8581054dc5bd10800000000000000
+      internalID: 2140842894146505812
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: demon-attack-no-breath_4
+      name: 0x72_DungeonTilesetII_v1.4_4
       rect:
         serializedVersion: 2
-        x: 768
-        y: 0
-        width: 192
-        height: 176
+        x: 148
+        y: 114
+        width: 22
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,20 +237,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d2ee730252c58620800000000000000
-      internalID: 2775838402845532889
+      spriteID: 2312ff02a55b0ace0800000000000000
+      internalID: -1395916485779578574
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: demon-attack-no-breath_5
+      name: 0x72_DungeonTilesetII_v1.4_5
       rect:
         serializedVersion: 2
-        x: 960
-        y: 0
-        width: 192
-        height: 176
+        x: 180
+        y: 116
+        width: 22
+        height: 29
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -258,20 +258,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 32f8b846b25533200800000000000000
-      internalID: 158564056746921763
+      spriteID: bf555923c16c626b0800000000000000
+      internalID: -5321348085281630725
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: demon-attack-no-breath_6
+      name: 0x72_DungeonTilesetII_v1.4_6
       rect:
         serializedVersion: 2
-        x: 1152
-        y: 0
-        width: 192
-        height: 176
+        x: 212
+        y: 112
+        width: 22
+        height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -279,20 +279,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed2a968c823515da0800000000000000
-      internalID: -5957889397408292130
+      spriteID: 089d28d70317acc90800000000000000
+      internalID: -7148777005419144832
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: demon-attack-no-breath_7
+      name: 0x72_DungeonTilesetII_v1.4_7
       rect:
         serializedVersion: 2
-        x: 1344
-        y: 0
-        width: 192
-        height: 176
+        x: 244
+        y: 112
+        width: 23
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -300,8 +300,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b54b94a864ed88300800000000000000
-      internalID: 254697773495596123
+      spriteID: 4e59dd566c814f4c0800000000000000
+      internalID: -4254748507566664220
       vertices: []
       indices: 
       edges: []

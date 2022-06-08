@@ -32,8 +32,8 @@ public class DashEffect : PoolableMono
         transform.position = _playerTrm.position;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-        _playerTrm.position = new Vector3(Mathf.Clamp(_afterDashPos.position.x, -9f, 9f),
-                                                    Mathf.Clamp(_afterDashPos.position.y, -4.5f, 17f));
+        _playerTrm.position = new Vector3(Mathf.Clamp(_afterDashPos.position.x, -8.8f, 8.8f),
+                                                    Mathf.Clamp(_afterDashPos.position.y, -4.5f, 16.5f));
         //_playerTrm.position = _afterDashPos.position;
     }
 
