@@ -8,13 +8,6 @@ public class StageManager : MonoBehaviour
 {
     public static StageManager Instance;
 
-    private Transform _trmParent;
-
-    public StageManager(Transform trmParent)
-    {
-        _trmParent = trmParent;
-    }
-
     [SerializeField] GameObject _upCloseDoor;
     [SerializeField] GameObject _upOpenDoor;
     [SerializeField] GameObject _downCloseDoor;
@@ -23,6 +16,14 @@ public class StageManager : MonoBehaviour
     private Vector3 _initPos = new Vector3(0, -4.5f, 0);
     private RectTransform _blackImage;
     private Transform _playerTrm;
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+    }
 
     private void Start()
     {
@@ -34,7 +35,7 @@ public class StageManager : MonoBehaviour
 
     private void Update()
     {
-        if(_playerTrm.position.y >= 5.1f)
+        if(_playerTrm.position.y >= 18f)
         {
             StageStart();
         }

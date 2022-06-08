@@ -26,21 +26,24 @@ public class CamRig : MonoBehaviour
 
         float otho = _cmRigCam.m_Lens.OrthographicSize;
 
-        _halfWidth = otho * 16 / 9;
+        //_halfWidth = otho * 16 / 9;
         _halfHeight = otho;
     }
 
-    public void HandleMove(float x, float y, Vector3 dir)
+    public void HandleMove(float y)
     {
-        float minX = _boundMin.x + _halfWidth;
-        float maxX = _boundMax.x - _halfWidth;
+        //float minX = _boundMin.x + _halfWidth;
+        //float maxX = _boundMax.x - _halfWidth;
 
         float minY = _boundMin.y + _halfHeight;
         float maxY = _boundMax.y - _halfHeight;
 
-        transform.position += dir * _moveSpeed * Time.deltaTime;
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, minX, maxX),
-            Mathf.Clamp(transform.position.y, minY, maxY));
+        Vector3 pos = new Vector3(0, y, 0);
+
+        transform.position +=  pos * _moveSpeed * Time.deltaTime;
+        /*transform.position = new Vector3(Mathf.Clamp(transform.position.x, minX, maxX),
+            Mathf.Clamp(transform.position.y, minY, maxY));*/
+        transform.position = new Vector3(0, Mathf.Clamp(transform.position.y, minY, maxY));
     }
 }
 

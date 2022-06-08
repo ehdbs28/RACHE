@@ -5,15 +5,7 @@ using Cinemachine;
 
 public class CameraManager : MonoBehaviour
 {
-    public static CameraManager Instance;
-
-    private void Awake()
-    {
-        if(Instance == null)
-        {
-            Instance = this;
-        }
-    }
+    public static CameraManager Instance = null;
 
     private CinemachineVirtualCamera _cmRigCam;
 
@@ -21,7 +13,7 @@ public class CameraManager : MonoBehaviour
 
     private CamRig _camrig;
 
-    public void Init()
+    public void Start()
     {
         _cmRigCam = GameObject.Find("MainVcam").GetComponent<CinemachineVirtualCamera>();
 
