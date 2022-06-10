@@ -11,7 +11,8 @@ public class CameraManager : MonoBehaviour
 
     private CinemachineBasicMultiChannelPerlin _cmRigPerlin = null;
 
-    private CamRig _camrig;
+    private Transform _bossTrm;
+    private Transform _playerTrm;
 
     public void Start()
     {
@@ -19,6 +20,19 @@ public class CameraManager : MonoBehaviour
 
         _cmRigPerlin = _cmRigCam.GetComponent<CinemachineBasicMultiChannelPerlin>();
 
-        _camrig = GameObject.Find("MainVcam").GetComponent<CamRig>();
+        _bossTrm = GameObject.Find("Player").GetComponent<Transform>();
+        _playerTrm = GameObject.Find("DemonBoss").GetComponent<Transform>();
+    }
+
+    public void BossToPlayer()
+    {
+        StartCoroutine(BossToPlayerCoroutine());
+    }
+
+    IEnumerator BossToPlayerCoroutine()
+    {
+        _cmRigCam.Follow = _bossTrm;
+        yield return new WaitForSeconds(5f);
+        _cmRigCam.Follow = _playerTrm;
     }
 }

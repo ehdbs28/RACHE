@@ -25,5 +25,8 @@ public class GameManager : MonoBehaviour
         GameObject timeController = new GameObject("TimeController");
         timeController.transform.parent = transform;
         TimeController.Instance = timeController.AddComponent<TimeController>();
+
+
+        //카메라 매니저 인스턴스 만들어야댐
     }
 }

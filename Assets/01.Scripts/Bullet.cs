@@ -6,7 +6,6 @@ public class Bullet : PoolableMono
 {
     [SerializeField] private float _bulletForce = 5f;
     
-    private Rigidbody2D _bulletRigid;
 
     public override void Reset()
     {
@@ -15,7 +14,6 @@ public class Bullet : PoolableMono
 
     private void OnEnable()
     {
-        _bulletRigid = GetComponent<Rigidbody2D>();
 
         //_bulletRigid.AddForce(Vector2.right * _bulletForce, ForceMode2D.Impulse);
     }
@@ -40,6 +38,15 @@ public class Bullet : PoolableMono
             });
             PoolManager.Instance.Push(this);
             //PoolManager.Instance.Push(collision.GetComponent<Enemy>());
+        }
+
+        if (collision.CompareTag("Boss"))
+        {
+            TimeController.Instance.ModifyTimeScale(0.2f, 0.01f, () =>
+            {
+                TimeController.Instance.ModifyTimeScale(1f, 0.01f);
+            });
+            PoolManager.Instance.Push(this);
         }
     }
 }

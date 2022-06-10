@@ -49,6 +49,10 @@ public class StageManager : MonoBehaviour
         {
             StageStart();
         }
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            CameraManager.Instance.BossToPlayer();
+        }
     }
 
     public void BlackScreen()
