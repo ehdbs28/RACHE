@@ -22,11 +22,8 @@ public class GameManager : MonoBehaviour
             PoolManager.Instance.CreatePool(p, 10);
         }
 
-        GameObject timeController = new GameObject("TimeController");
-        timeController.transform.parent = transform;
-        TimeController.Instance = timeController.AddComponent<TimeController>();
+        TimeController.Instance = gameObject.AddComponent<TimeController>();
 
-
-        //카메라 매니저 인스턴스 만들어야댐
+        CameraManager.Instance = gameObject.AddComponent<CameraManager>();
     }
 }

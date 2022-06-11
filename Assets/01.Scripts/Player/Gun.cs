@@ -12,8 +12,11 @@ public class Gun : MonoBehaviour
 
     private void Update()
     {
-        FollowMouse();
-        FireBullet();
+        if (StageManager.Instance.IsGameStart == true)
+        {
+            FollowMouse();
+            FireBullet();
+        }
     }
 
     private void FollowMouse()

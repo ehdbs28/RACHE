@@ -27,8 +27,11 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        Move();
-        Flash();
+        if(StageManager.Instance.IsGameStart == true)
+        {
+            Move();
+            Flash();
+        }
     }
 
     private void Flash()

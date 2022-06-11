@@ -878,6 +878,7 @@ GameObject:
   - component: {fileID: 334888220}
   - component: {fileID: 334888222}
   - component: {fileID: 334888223}
+  - component: {fileID: 334888224}
   m_Layer: 0
   m_Name: DemonBoss
   m_TagString: Boss
@@ -995,6 +996,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.525031, y: 5.3560143}
   m_EdgeRadius: 0
+--- !u!114 &334888224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334888219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ff2974090517d54b8e5607f9609bd3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &361057243
 GameObject:
   m_ObjectHideFlags: 0
@@ -2163,7 +2176,6 @@ GameObject:
   - component: {fileID: 766397669}
   - component: {fileID: 766397671}
   - component: {fileID: 766397672}
-  - component: {fileID: 766397673}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -2228,18 +2240,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 255029749daeb3e42b3cf5ce9b533a0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &766397673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 766397668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc942405595e2eb4387e5fe5123c24db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &788572597

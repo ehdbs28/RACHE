@@ -16,6 +16,11 @@ public class StageManager : MonoBehaviour
     private Vector3 _initPos = new Vector3(0, -4.5f, 0);
     private RectTransform _blackImage;
     private Transform _playerTrm;
+    private bool _isGameStart = false;
+    public bool IsGameStart
+    {
+        get => _isGameStart;
+    }
 
     private void Awake()
     {
@@ -31,6 +36,11 @@ public class StageManager : MonoBehaviour
         _blackImage = GameObject.Find("Canvas/StageSkipPanel").GetComponent<RectTransform>();
 
         StageStart();
+        CameraManager.Instance.BossToPlayer(()=>
+        {
+            _isGameStart = true;
+            Debug.Log(IsGameStart);
+        });
     }
 
     private void Update()

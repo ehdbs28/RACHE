@@ -35,11 +35,14 @@ public class Enemy : PoolableMono
 
     private void Update()
     {
-        _enemySprite.flipX = transform.position.x > 0 ? true : false;
-
-        if(isActive)
+        if(StageManager.Instance.IsGameStart == true)
         {
-            EnemyMove();
+            _enemySprite.flipX = transform.position.x > 0 ? true : false;
+
+            if (isActive)
+            {
+                EnemyMove();
+            }
         }
     }
 
