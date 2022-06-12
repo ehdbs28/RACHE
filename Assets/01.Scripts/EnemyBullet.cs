@@ -10,7 +10,6 @@ public class EnemyBullet : PoolableMono
     private void Start()
     {
         _rigid2D = GetComponent<Rigidbody2D>();
-        //_rigid2D.velocity = _speed * transform.right;
     }
     private void Update()
     {
@@ -21,6 +20,14 @@ public class EnemyBullet : PoolableMono
     {
         if (collision.CompareTag("Wall") || collision.CompareTag("Door"))
         {
+            PoolManager.Instance.Push(this);
+        }
+        if (collision.CompareTag("Player"))
+        {
+            TimeController.Instance.ModifyTimeScale(0.2f, 0.01f, () =>
+            {
+                TimeController.Instance.ModifyTimeScale(1f, 0.01f);
+            });
             PoolManager.Instance.Push(this);
         }
     }
