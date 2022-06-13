@@ -19,7 +19,7 @@ public class CameraManager : MonoBehaviour
     {
         _cmRigCam = GameObject.Find("MainVcam").GetComponent<CinemachineVirtualCamera>();
 
-        _cmRigPerlin = _cmRigCam.GetComponent<CinemachineBasicMultiChannelPerlin>();
+        _cmRigPerlin = _cmRigCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
         _bossTrm = GameObject.Find("DemonBoss").GetComponent<Transform>();
         _playerTrm = GameObject.Find("Player").GetComponent<Transform>();
@@ -37,5 +37,29 @@ public class CameraManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(2f);
         _cmRigCam.Follow = _playerTrm;
         OnComplete?.Invoke();
+    }
+
+    public void ShakeCam(float intensity, float time)
+    {
+        if (_cmRigPerlin == null) return;
+        StopAllCoroutines();
+        StartCoroutine(ShakeCamCoroutine(intensity, time));
+    }
+
+    IEnumerator ShakeCamCoroutine(float intensity, float endTime)
+    {
+        _cmRigPerlin.m_AmplitudeGain = intensity;
+
+        float currentTime = 0f;
+        while (currentTime < endTime)
+        {
+            yield return new WaitForEndOfFrame();
+            if (_cmRigPerlin == null) break;
+
+            _cmRigPerlin.m_AmplitudeGain = Mathf.Lerp(intensity, 0, currentTime / endTime);
+            currentTime += Time.deltaTime;
+        }
+        if (_cmRigPerlin != null)
+            _cmRigPerlin.m_AmplitudeGain = 0;
     }
 }

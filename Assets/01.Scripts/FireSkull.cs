@@ -7,29 +7,48 @@ public class FireSkull : PoolableMono
 {
     [SerializeField] private float speed = 10f;
 
-    private float positionY;
+    private SpriteRenderer sr;
+    private Vector2 dir;
 
     private void Start()
     {
-        
+        if (gameObject.CompareTag("DangerMark"))
+        {
+            sr = GetComponent<SpriteRenderer>();
+
+            DangerMarkFade();
+        }
+        dir = transform.position.x > 0 ? Vector3.right * -1 : Vector3.right;
     }
 
     private void Update()
     {
-        if (gameObject.CompareTag("DangerMark"))
+        if (gameObject.CompareTag("FireAttack"))
         {
-            //여기 더 해야함
+            Invoke("AttackMove", 0.5f);
+
+            if(Mathf.Abs(transform.position.x) > 20f)
+            {
+                PoolManager.Instance.Push(this);
+            }
         }
     }
 
-    IEnumerator MoveCoroutine()
+    private void AttackMove()
     {
-        positionY = Random.Range(-1f, 9f);
+        transform.Translate(dir * speed * Time.deltaTime);
+    }
 
-        transform.localScale = transform.position.x > 0 ? new Vector3(1, 1, 1) : new Vector3(-1, 1, 1);
+    private void DangerMarkFade()
+    {
+        Sequence sq = DOTween.Sequence();
 
-        FireSkull DangerMark = PoolManager.Instance.Pop("DangerMark") as FireSkull;
-        yield return new WaitForSeconds(2f);
+        sq.Append(sr.DOFade(0.3f, 1f));
+        sq.Append(sr.DOFade(0.8f, 1f));
+        sq.AppendCallback(() =>
+        {
+            DangerMarkFade();
+        });
     }
 
     public override void Reset()

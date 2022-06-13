@@ -28,6 +28,7 @@ public class EnemyBullet : PoolableMono
             {
                 TimeController.Instance.ModifyTimeScale(1f, 0.01f);
             });
+            CameraManager.Instance.ShakeCam(2f, 0.4f);
             PoolManager.Instance.Push(this);
         }
     }

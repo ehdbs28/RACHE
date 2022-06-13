@@ -25,5 +25,7 @@ public class GameManager : MonoBehaviour
         TimeController.Instance = gameObject.AddComponent<TimeController>();
 
         CameraManager.Instance = gameObject.AddComponent<CameraManager>();
+
+        EnemySpawnManager.Instance = gameObject.AddComponent<EnemySpawnManager>();
     }
 }

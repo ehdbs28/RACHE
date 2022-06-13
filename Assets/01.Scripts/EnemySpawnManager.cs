@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemySpawnManager : MonoBehaviour
 {
+    public static EnemySpawnManager Instance = null;
+
     private int _maxEnemy = 5;
 
     private float x;
@@ -11,10 +13,15 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(EnemySpawn());
+        EnemySpawn();
     }
 
-    IEnumerator EnemySpawn()
+    public void EnemySpawn()
+    {
+        StartCoroutine(EnemySpawnCoroutine());
+    }
+
+    IEnumerator EnemySpawnCoroutine()
     {
         for (int i = 0; i < _maxEnemy; i++)
         {

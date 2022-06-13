@@ -8,6 +8,7 @@ public class Boss : MonoBehaviour
 {
     public enum State
     {
+        Init,
         HorseAttack,
         BreathAttack,
         BulletAttack,
@@ -15,6 +16,7 @@ public class Boss : MonoBehaviour
     }
 
     [SerializeField] private GameObject _bossDeathEfx;
+    [SerializeField] private List<Vector2> _fireAttackPos = new List<Vector2>();
 
     private Animator _anim;
     StateMachine<State> fsm;
@@ -23,39 +25,63 @@ public class Boss : MonoBehaviour
     private int _startAngle = 0;
     private int _endAngle = 360;
 
+    private float randomPosY;
+
     private void Start()
     {
         fsm = new StateMachine<State>(this);
 
-        fsm.ChangeState(State.HorseAttack);
+        fsm.ChangeState(State.Init);
 
         _anim = GetComponent<Animator>();
         BossAttackMotion("AttackCoroutine");
+
+        StartCoroutine(ChangeState());
     }
 
-    private void Update()
+    IEnumerator ChangeState()
     {
-        //test
-        if (Input.GetKeyDown(KeyCode.M))
+        yield return new WaitForSeconds(3f);
+        while (true)
         {
-            fsm.ChangeState(State.Death);
-        }
+            int num = Random.Range(1, 4);
+            Debug.Log(num);
 
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            fsm.ChangeState(State.BreathAttack);
+            if(num == 1)
+            {
+                fsm.ChangeState(State.HorseAttack);
+            }
+            if(num == 2)
+            {
+                fsm.ChangeState(State.BreathAttack);
+            }
+            if(num == 3)
+            {
+                fsm.ChangeState(State.BulletAttack);
+            }
+            yield return new WaitForSeconds(3f);
         }
+    }
+
+    private void Init_Enter()
+    {
+        Debug.Log("Ready FSM");
     }
 
     private void HorseAttack_Enter()
     {
-        Debug.Log("HorseAttack");
+        BossAttackMotion("FireSkullAttack");
     }
 
     private void BreathAttack_Enter()
     {
         BossAttackMotion("AttackCoroutine");
         Invoke("BossBreathAttack", 3f);
+    }
+
+    private void BulletAttack_Enter()
+    {
+        BossAttackMotion("BulletAttackCoroutine");
     }
 
     private void Death_Enter()
@@ -81,16 +107,16 @@ public class Boss : MonoBehaviour
 
     private void BossBreathAttack()
     {
-        FireAttack fireAttack = PoolManager.Instance.Pop("FireAttack") as FireAttack;
-        fireAttack.transform.position = new Vector3(10, 20);
-
-        FireAttack fireAttack2 = PoolManager.Instance.Pop("FireAttack") as FireAttack;
-        fireAttack2.transform.position = new Vector3(-10, 20);
+        for(int i = 0; i < 4; i++)
+        {
+            FireAttack fireAttack = PoolManager.Instance.Pop("FireAttack") as FireAttack;
+            fireAttack.transform.position = _fireAttackPos[i];
+        }
     }
 
     private void BossAttackMotion(string name)
     {
-        StopAllCoroutines();
+        //StopAllCoroutines();
         StartCoroutine(name);
     }
 
@@ -104,5 +130,30 @@ public class Boss : MonoBehaviour
         yield return new WaitForSecondsRealtime(1.2f);
         _anim.SetBool("isAttack", false);
         PoolManager.Instance.Push(GameObject.Find("Manager/BossBreath").GetComponent<PoolableMono>());
+    }
+
+    IEnumerator BulletAttackCoroutine()
+    {
+        EnemySpawnManager.Instance.EnemySpawn();
+        yield return new WaitForSeconds(2f);
+        //보스 총알 패턴 구현 예정
+    }
+
+    IEnumerator FireSkullAttack()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            randomPosY = Random.Range(-1f, 9f);
+            FireSkull dangerMark = PoolManager.Instance.Pop("DangerMark") as FireSkull;
+            dangerMark.transform.position = new Vector3(0, randomPosY, 0);
+
+            yield return new WaitForSeconds(1f);
+            PoolManager.Instance.Push(GameObject.Find("DangerMark").GetComponent<PoolableMono>());
+            FireSkull fireSkullAttack = PoolManager.Instance.Pop("Fire_Skull") as FireSkull;
+            fireSkullAttack.transform.position = i % 2 == 0 ? new Vector3(-16f, randomPosY) : new Vector3(16f, randomPosY);
+            fireSkullAttack.transform.localScale = fireSkullAttack.transform.position.x > 0 ? new Vector3(1, 1, 1) : new Vector3(-1, 1, 1);
+            yield return new WaitForSeconds(1f);
+
+        }
     }
 }
