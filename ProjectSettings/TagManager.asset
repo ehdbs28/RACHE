@@ -8,6 +8,7 @@ TagManager:
   - Door
   - Enemy
   - Boss
+  - FireAttack
   layers:
   - Default
   - TransparentFX
