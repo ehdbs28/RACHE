@@ -1,28 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MonsterLove.StateMachine;
 
 public class Boss : MonoBehaviour
 {
     public enum State
     {
+        Init,
         HorseAttack,
         BreathAttack,
         BulletAttack
     }
 
     private Animator _anim;
-    private State state = State.BreathAttack;
+    StateMachine<State> fsm;
 
     private void Start()
     {
+        fsm = new StateMachine<State>(this);
+
+        fsm.ChangeState(State.Init);
+
         _anim = GetComponent<Animator>();
         BossAttackMotion();
-    }
-
-    private void Update()
-    {
-           
     }
 
     private void BossAttackMotion()
