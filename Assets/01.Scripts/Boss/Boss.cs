@@ -17,11 +17,12 @@ public class Boss : MonoBehaviour
 
     [SerializeField] private GameObject _bossDeathEfx;
     [SerializeField] private List<Vector2> _fireAttackPos = new List<Vector2>();
+    [SerializeField] private GameObject boss;
 
     private Animator _anim;
     StateMachine<State> fsm;
 
-    private int _angleInterval = 5;
+    private int _angleInterval = 30;
     private int _startAngle = 0;
     private int _endAngle = 360;
 
@@ -45,6 +46,7 @@ public class Boss : MonoBehaviour
         while (true)
         {
             int num = Random.Range(1, 4);
+            //랜덤 값 안겹치게 수정 필요함
             Debug.Log(num);
 
             if(num == 1)
@@ -93,7 +95,7 @@ public class Boss : MonoBehaviour
         sq.Append(_bossDeathEfx.transform.DOScale(new Vector3(0, 0, 0), 0.2f));
         sq.OnComplete(()=>
         {
-            for (int fireAngle = _startAngle; fireAngle < _endAngle; fireAngle += _angleInterval)
+            for (int fireAngle = _startAngle; fireAngle < _endAngle; fireAngle += 5)
             {
                 EnemyBullet enemyBullet = PoolManager.Instance.Pop("EnemyBullet") as EnemyBullet;
                 Vector2 dir = new Vector2(Mathf.Cos(fireAngle * Mathf.Deg2Rad), Mathf.Sin(fireAngle * Mathf.Deg2Rad));
@@ -102,7 +104,6 @@ public class Boss : MonoBehaviour
             }
             gameObject.SetActive(false);
         });
-
     }
 
     private void BossBreathAttack()
@@ -134,9 +135,29 @@ public class Boss : MonoBehaviour
 
     IEnumerator BulletAttackCoroutine()
     {
-        EnemySpawnManager.Instance.EnemySpawn();
+        EnemySpawnManager.Instance.EnemySpawn(10);
+
         yield return new WaitForSeconds(2f);
-        //보스 총알 패턴 구현 예정
+        for(int i = 0; i < 3; i++)
+        {
+            Sequence sq = DOTween.Sequence();
+
+            sq.Append(boss.transform.DOMoveY(boss.transform.position.y + 2, 0.3f));
+            sq.Append(boss.transform.DOMoveY(boss.transform.position.y - 2, 0.2f));
+            sq.OnComplete(()=>
+            {
+                CameraManager.Instance.ShakeCam(2, 0.4f);
+                for (int fireAngle = _startAngle; fireAngle < _endAngle; fireAngle += _angleInterval)
+                {
+                    EnemyBullet enemyBullet = PoolManager.Instance.Pop("EnemyBullet") as EnemyBullet;
+                    Vector2 dir = new Vector2(Mathf.Cos(fireAngle * Mathf.Deg2Rad), Mathf.Sin(fireAngle * Mathf.Deg2Rad));
+                    enemyBullet.transform.right = dir;
+                    enemyBullet.transform.position = transform.position;
+                }
+                boss.transform.DOMoveY(13, 0.5f);
+            });
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
     IEnumerator FireSkullAttack()

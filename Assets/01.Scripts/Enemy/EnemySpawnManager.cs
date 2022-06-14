@@ -13,17 +13,17 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void Start()
     {
-        EnemySpawn();
+        EnemySpawn(_maxEnemy);
     }
 
-    public void EnemySpawn()
+    public void EnemySpawn(int maxEnemy)
     {
-        StartCoroutine(EnemySpawnCoroutine());
+        StartCoroutine(EnemySpawnCoroutine(maxEnemy));
     }
 
-    IEnumerator EnemySpawnCoroutine()
+    IEnumerator EnemySpawnCoroutine(int maxEnemy)
     {
-        for (int i = 0; i < _maxEnemy; i++)
+        for (int i = 0; i < maxEnemy; i++)
         {
                 yield return new WaitForSeconds(0.5f);
                 x = Random.Range(-9f, 9f);
