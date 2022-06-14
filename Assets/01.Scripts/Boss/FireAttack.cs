@@ -15,7 +15,6 @@ public class FireAttack : PoolableMono
     {
         targetTrm = GameObject.Find("Player").GetComponent<Transform>();
         targetDir = targetTrm.position - transform.position;
-        //버그 픽스 하여야댐
     }
 
     private void Update()

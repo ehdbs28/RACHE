@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class StageManager : MonoBehaviour
 {
@@ -49,20 +50,6 @@ public class StageManager : MonoBehaviour
         {
             StageStart();
         }
-
-        //test
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            StageClear();
-        }
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            StageStart();
-        }
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            CameraManager.Instance.BossToPlayer();
-        }
     }
 
     public void BlackScreen()
@@ -84,6 +71,20 @@ public class StageManager : MonoBehaviour
         BlackScreen();
 
         _playerTrm.position = _initPos;
+    }
+
+    public void PlayerDie()
+    {
+        StartCoroutine(PlayerDieCoroutine());
+    }
+
+    IEnumerator PlayerDieCoroutine()
+    {
+        _isGameStart = false;
+        BlackScreen();
+        SceneManager.LoadScene("GameOver");
+        yield return new WaitForSeconds(1f);
+        
     }
 
     public void StageClear()

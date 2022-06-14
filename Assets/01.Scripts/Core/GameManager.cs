@@ -27,5 +27,7 @@ public class GameManager : MonoBehaviour
         CameraManager.Instance = gameObject.AddComponent<CameraManager>();
 
         EnemySpawnManager.Instance = gameObject.AddComponent<EnemySpawnManager>();
+
+        PlayerHp.Instance = gameObject.AddComponent<PlayerHp>();
     }
 }
