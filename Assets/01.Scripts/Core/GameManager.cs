@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance != null)
+        #region 인스턴스 생성
+        if (Instance != null)
         {
             Debug.LogError("Multiple GameManager Instance is running!");
         }
@@ -29,5 +30,8 @@ public class GameManager : MonoBehaviour
         EnemySpawnManager.Instance = gameObject.AddComponent<EnemySpawnManager>();
 
         PlayerHp.Instance = gameObject.AddComponent<PlayerHp>();
+
+        SceneChange.Instance = gameObject.AddComponent<SceneChange>();
+        #endregion
     }
 }

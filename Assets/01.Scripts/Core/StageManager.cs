@@ -16,6 +16,7 @@ public class StageManager : MonoBehaviour
 
     private Vector3 _initPos = new Vector3(0, -4.5f, 0);
     private RectTransform _blackImage;
+    private Image _blackPanelImg;
     private Transform _playerTrm;
     private bool _isGameStart = false;
     public bool IsGameStart
@@ -35,6 +36,7 @@ public class StageManager : MonoBehaviour
     {
         _playerTrm = GameObject.Find("Player").GetComponent<Transform>();
         _blackImage = GameObject.Find("Canvas/StageSkipPanel").GetComponent<RectTransform>();
+        _blackPanelImg = _blackImage.GetComponent<Image>();
 
         StageStart();
         CameraManager.Instance.BossToPlayer(()=>
@@ -54,11 +56,9 @@ public class StageManager : MonoBehaviour
 
     public void BlackScreen()
     {
-        Image img = _blackImage.GetComponent<Image>();
-
         Sequence seq = DOTween.Sequence();
-        seq.Append(img.DOFade(1, 0.5f));
-        seq.Append(img.DOFade(0, 0.5f));
+        seq.Append(_blackPanelImg.DOFade(1, 0.5f));
+        seq.Append(_blackPanelImg.DOFade(0, 0.5f));
     }
 
     public void StageStart()
@@ -81,10 +81,9 @@ public class StageManager : MonoBehaviour
     IEnumerator PlayerDieCoroutine()
     {
         _isGameStart = false;
-        BlackScreen();
+        _blackPanelImg.DOFade(1, 1f);
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("GameOver");
-        yield return new WaitForSeconds(1f);
-        
     }
 
     public void StageClear()
