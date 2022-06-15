@@ -6,6 +6,8 @@ public class EnemySpawnManager : MonoBehaviour
 {
     public static EnemySpawnManager Instance = null;
 
+    private Boss _bossScript;
+
     private int _maxEnemy = 5;
 
     private float x;
@@ -13,12 +15,17 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void Start()
     {
+        _bossScript = GameObject.Find("DemonBoss").GetComponent<Boss>();
+
         EnemySpawn(_maxEnemy);
     }
 
     public void EnemySpawn(int maxEnemy)
     {
-        StartCoroutine(EnemySpawnCoroutine(maxEnemy));
+        if(_bossScript.IsDeath == false)
+        {
+            StartCoroutine(EnemySpawnCoroutine(maxEnemy));
+        }
     }
 
     IEnumerator EnemySpawnCoroutine(int maxEnemy)

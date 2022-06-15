@@ -28,6 +28,9 @@ public class Boss : MonoBehaviour
 
     private float randomPosY;
 
+    private bool _isDeath = false;
+    public bool IsDeath { get => _isDeath; set => _isDeath = value; }
+
     private void Start()
     {
         fsm = new StateMachine<State>(this);
@@ -40,10 +43,15 @@ public class Boss : MonoBehaviour
         StartCoroutine(ChangeState());
     }
 
+    public void ChangeBossDeath()
+    {
+        fsm.ChangeState(State.Death);
+    }
+
     IEnumerator ChangeState()
     {
         yield return new WaitForSeconds(3f);
-        while (true)
+        while (_isDeath == false)
         {
             int num = Random.Range(1, 4);
             //랜덤 값 안겹치게 수정 필요함
@@ -72,22 +80,37 @@ public class Boss : MonoBehaviour
 
     private void HorseAttack_Enter()
     {
-        BossAttackMotion("FireSkullAttack");
+        if(_isDeath != true)
+            BossAttackMotion("FireSkullAttack");
     }
 
     private void BreathAttack_Enter()
     {
-        BossAttackMotion("AttackCoroutine");
-        Invoke("BossBreathAttack", 3f);
+        if(_isDeath != true)
+        {
+            BossAttackMotion("AttackCoroutine");
+            Invoke("BossBreathAttack", 3f);
+        }
     }
 
     private void BulletAttack_Enter()
     {
-        BossAttackMotion("BulletAttackCoroutine");
+        if(_isDeath != true)
+        {
+            BossAttackMotion("BulletAttackCoroutine");
+        }
     }
 
     private void Death_Enter()
     {
+        _isDeath = true;
+
+        GameObject[] allEnemy = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach(GameObject item in allEnemy)
+        {
+            PoolManager.Instance.Push(item.GetComponent<PoolableMono>());
+        }
+
         Sequence sq = DOTween.Sequence();
 
         _bossDeathEfx.SetActive(true);

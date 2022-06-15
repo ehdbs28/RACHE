@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
 
         EnemySpawnManager.Instance = gameObject.AddComponent<EnemySpawnManager>();
 
-        PlayerHp.Instance = gameObject.AddComponent<PlayerHp>();
+        HpManager.Instance = gameObject.AddComponent<HpManager>();
 
         SceneChange.Instance = gameObject.AddComponent<SceneChange>();
         #endregion
