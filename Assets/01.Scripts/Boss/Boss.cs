@@ -19,6 +19,8 @@ public class Boss : MonoBehaviour
     [SerializeField] private List<Vector2> _fireAttackPos = new List<Vector2>();
     [SerializeField] private GameObject boss;
 
+    private Sequence sq;
+
     private Animator _anim;
     StateMachine<State> fsm;
 
@@ -43,6 +45,19 @@ public class Boss : MonoBehaviour
         StartCoroutine(ChangeState());
     }
 
+    public void KillSequence()
+    {
+        sq.Kill();
+    }
+
+    /*private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            fsm.ChangeState(State.Death);
+        }
+    }*/
+
     public void ChangeBossDeath()
     {
         fsm.ChangeState(State.Death);
@@ -50,22 +65,39 @@ public class Boss : MonoBehaviour
 
     IEnumerator ChangeState()
     {
+        Dictionary<string, int> diction = new Dictionary<string, int>();
+        int num, randomNum;
         yield return new WaitForSeconds(3f);
         while (_isDeath == false)
         {
-            int num = Random.Range(1, 4);
-            //랜덤 값 안겹치게 수정 필요함
-            Debug.Log(num);
+            num = Random.Range(1, 4);
 
-            if(num == 1)
+            if (diction.ContainsKey("1") && diction.ContainsKey("2") && diction.ContainsKey("3"))
+            {
+                diction.Clear();
+            }
+
+            if (!diction.ContainsKey(num.ToString()))
+            {
+                randomNum = num;
+                diction.Add(num.ToString(), num);
+            }
+            else
+            {
+                continue;
+            }
+
+            Debug.Log(randomNum);
+
+            if(randomNum == 1)
             {
                 fsm.ChangeState(State.HorseAttack);
             }
-            if(num == 2)
+            if(randomNum == 2)
             {
                 fsm.ChangeState(State.BreathAttack);
             }
-            if(num == 3)
+            if(randomNum == 3)
             {
                 fsm.ChangeState(State.BulletAttack);
             }
@@ -113,7 +145,7 @@ public class Boss : MonoBehaviour
             PoolManager.Instance.Push(item.GetComponent<PoolableMono>());
         }
 
-        Sequence sq = DOTween.Sequence();
+        sq = DOTween.Sequence();
 
         _bossDeathEfx.SetActive(true);
         sq.Append(_bossDeathEfx.transform.DOScale(new Vector3(3f, 3f, 3f), 2.5f));
@@ -164,7 +196,7 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(2f);
         for(int i = 0; i < 3; i++)
         {
-            Sequence sq = DOTween.Sequence();
+            sq = DOTween.Sequence();
 
             sq.Append(boss.transform.DOMoveY(boss.transform.position.y + 2, 0.3f));
             sq.Append(boss.transform.DOMoveY(boss.transform.position.y - 2, 0.2f));

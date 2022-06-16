@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : PoolableMono
 {
     [SerializeField] private float _bulletForce = 5f;
-    [SerializeField] private float _bulletDamage = 1f;
+    [SerializeField] private float _bulletDamage = 50f;
 
     public override void Reset()
     {

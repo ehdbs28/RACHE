@@ -82,7 +82,10 @@ public class Enemy : PoolableMono
         sq.Append(transform.DOScale(new Vector3(0, 0, 0), 0.2f));
         sq.OnComplete(() =>
         {
-            StartCoroutine(MakeBullet());
+            if (!_bossScript.IsDeath)
+            {
+                StartCoroutine(MakeBullet());
+            }
             PoolManager.Instance.Push(this);
         });
     }

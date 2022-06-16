@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour
 
         HpManager.Instance = gameObject.AddComponent<HpManager>();
 
-        SceneChange.Instance = gameObject.AddComponent<SceneChange>();
         #endregion
     }
 }
