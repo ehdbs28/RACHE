@@ -105,6 +105,8 @@ public class Boss : MonoBehaviour
     {
         _isDeath = true;
 
+        CameraManager.Instance.ShakeCam(40f, 0.5f);
+
         GameObject[] allEnemy = GameObject.FindGameObjectsWithTag("Enemy");
         foreach(GameObject item in allEnemy)
         {
@@ -125,6 +127,7 @@ public class Boss : MonoBehaviour
                 enemyBullet.transform.right = dir;
                 enemyBullet.transform.position = transform.position;
             }
+            StageManager.Instance.StageClear();
             gameObject.SetActive(false);
         });
     }

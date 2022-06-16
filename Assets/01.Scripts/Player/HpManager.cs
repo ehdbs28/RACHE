@@ -45,7 +45,7 @@ public class HpManager : MonoBehaviour
         if(_bossCurrentHP > 0)
         {
             _bossCurrentHP -= dmg;
-            _bossHp.gameObject.transform.DOShakePosition(0.2f, 40, 10, 90, false, false);
+            _bossHp.gameObject.transform.DOShakePosition(0.1f, 15, 10, 90, false, false);
         }
         
         if(_bossCurrentHP <= 0)
@@ -57,7 +57,7 @@ public class HpManager : MonoBehaviour
     public void HPDown(float dmg)
     {
         _currentHP -= dmg;
-        _playerHP.gameObject.transform.DOShakePosition(0.2f, 40, 10, 90, false, false);
+        _playerHP.gameObject.transform.DOShakePosition(0.1f, 15, 10, 90, false, false);
         if(_currentHP <= 0)
         {
             _anim.SetBool("isDeath", true);

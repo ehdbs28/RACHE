@@ -51,12 +51,23 @@ public class FireSkull : PoolableMono
         });
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            HpManager.Instance.HPDown(0.5f);
+            StartCoroutine(Damage());
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        StopAllCoroutines();
+    }
+
+    IEnumerator Damage()
+    {
+        HpManager.Instance.HPDown(3f);
+        yield return new WaitForSeconds(0.1f);
     }
 
     public override void Reset()
