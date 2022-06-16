@@ -73,7 +73,7 @@ public class Enemy : PoolableMono
                                                     Mathf.Clamp(transform.position.y, -4.5f, 16.5f));
     }
 
-    private void EnemyExplosion() 
+    public void EnemyExplosion() 
     {
         sq = DOTween.Sequence();
         isExplosion = true;

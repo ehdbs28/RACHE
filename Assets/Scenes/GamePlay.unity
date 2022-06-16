@@ -702,6 +702,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 40
+  _playerDashLimit: {fileID: 607232754}
 --- !u!212 &301199158
 SpriteRenderer:
   m_ObjectHideFlags: 0

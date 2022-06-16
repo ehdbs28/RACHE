@@ -12,12 +12,6 @@ public class Bullet : PoolableMono
 
     }
 
-    private void OnEnable()
-    {
-
-        //_bulletRigid.AddForce(Vector2.right * _bulletForce, ForceMode2D.Impulse);
-    }
-
     private void Update()
     {
         transform.Translate(Vector3.right * _bulletForce * Time.deltaTime);
@@ -32,6 +26,8 @@ public class Bullet : PoolableMono
 
         if (collision.CompareTag("Enemy"))
         {
+            ScoreManager.Instance.CurrentScore += 50;
+
             TimeController.Instance.ModifyTimeScale(0.2f, 0.01f, () =>
             {
                 TimeController.Instance.ModifyTimeScale(1f, 0.01f);
@@ -43,6 +39,7 @@ public class Bullet : PoolableMono
 
         if (collision.CompareTag("Boss"))
         {
+            ScoreManager.Instance.CurrentScore += 300;
             TimeController.Instance.ModifyTimeScale(0.2f, 0.01f, () =>
             {
                 TimeController.Instance.ModifyTimeScale(1f, 0.01f);

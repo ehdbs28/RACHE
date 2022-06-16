@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
 
         HpManager.Instance = gameObject.AddComponent<HpManager>();
 
+        ScoreManager.Instance = gameObject.AddComponent<ScoreManager>();
         #endregion
     }
 }

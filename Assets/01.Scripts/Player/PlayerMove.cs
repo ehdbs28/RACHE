@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 5f;
+    [SerializeField] private Slider _playerDashLimit;
     private float _defaultSpeed;
 
     private Rigidbody2D _rigid;
@@ -23,6 +25,8 @@ public class PlayerMove : MonoBehaviour
         _rigid = GetComponent<Rigidbody2D>();
         _playerSprite = GetComponent<SpriteRenderer>();
         _anim = GetComponent<Animator>();
+
+        _playerDashLimit.value = 1;
     }
 
     private void Update()
@@ -38,8 +42,16 @@ public class PlayerMove : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            DashEffect dashEffect = PoolManager.Instance.Pop("PlayerDash") as DashEffect;
-            _isDash = true;
+            if(_playerDashLimit.value == 1)
+            {
+                DashEffect dashEffect = PoolManager.Instance.Pop("PlayerDash") as DashEffect;
+                _isDash = true;
+                _playerDashLimit.DOValue(0, 0.1f);
+            }
+        }
+        if (_playerDashLimit.value == 0)
+        {
+            _playerDashLimit.DOValue(1, 1f);
         }
         _isDash = false;
     }
