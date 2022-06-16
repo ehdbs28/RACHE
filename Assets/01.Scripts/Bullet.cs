@@ -48,7 +48,7 @@ public class Bullet : PoolableMono
                 TimeController.Instance.ModifyTimeScale(1f, 0.01f);
             });
             CameraManager.Instance.ShakeCam(1f, 0.4f);
-            HpManager.Instance.BossHpDown(50f);
+            HpManager.Instance.BossHpDown(1f);
             PoolManager.Instance.Push(this);
         }
     }

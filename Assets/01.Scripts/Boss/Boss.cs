@@ -158,8 +158,6 @@ public class Boss : MonoBehaviour
 
     IEnumerator BulletAttackCoroutine()
     {
-        EnemySpawnManager.Instance.EnemySpawn(10);
-
         yield return new WaitForSeconds(2f);
         for(int i = 0; i < 3; i++)
         {

@@ -30,14 +30,19 @@ public class EnemySpawnManager : MonoBehaviour
 
     IEnumerator EnemySpawnCoroutine(int maxEnemy)
     {
-        for (int i = 0; i < maxEnemy; i++)
+        while(_bossScript.IsDeath != true)
         {
+            for (int i = 0; i < maxEnemy; i++)
+            {
+                if (_bossScript.IsDeath == true) { break; }
                 yield return new WaitForSeconds(0.5f);
                 x = Random.Range(-9f, 9f);
                 y = Random.Range(0, 13f);  //포지션 수정
                 Enemy enemy = PoolManager.Instance.Pop("Enemy") as Enemy;
                 enemy.transform.position = new Vector3(x, y);
                 enemy.transform.rotation = Quaternion.identity;
-        }
+            }
+            yield return new WaitForSeconds(7f);
+        } 
     }
 }
