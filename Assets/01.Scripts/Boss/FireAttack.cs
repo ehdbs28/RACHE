@@ -13,9 +13,17 @@ public class FireAttack : PoolableMono
 
     private void Start()
     {
+        targetDir = Vector3.zero;
         targetTrm = GameObject.Find("Player").GetComponent<Transform>();
         targetDir = targetTrm.position - transform.position;
     }
+
+    /*private void OnEnable()
+    {
+        targetTrm = GameObject.Find("Player").GetComponent<Transform>();
+        targetDir = targetTrm.position - transform.position;
+        Debug.Log(targetDir)
+    }*/
 
     private void Update()
     {
