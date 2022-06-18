@@ -29,6 +29,11 @@ public class Gun : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
+            TimeController.Instance.ModifyTimeScale(0.3f, 0.01f, () =>
+            {
+                TimeController.Instance.ModifyTimeScale(1f, 0.01f);
+            });
+            CameraManager.Instance.ShakeCam(1f, 0.4f);
             Bullet bullet = PoolManager.Instance.Pop("PlayerBullet") as Bullet;
             bullet.transform.position = _bulletPos.position;
             bullet.transform.rotation = _bulletPos.rotation;

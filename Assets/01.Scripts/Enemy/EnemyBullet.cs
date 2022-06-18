@@ -32,6 +32,10 @@ public class EnemyBullet : PoolableMono
             HpManager.Instance.HPDown(10f);
             PoolManager.Instance.Push(this);
         }
+        if (collision.CompareTag("BlankBullet"))
+        {
+            PoolManager.Instance.Push(this);
+        }
     }
 
     public override void Reset()

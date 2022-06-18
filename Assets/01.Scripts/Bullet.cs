@@ -28,11 +28,11 @@ public class Bullet : PoolableMono
         {
             ScoreManager.Instance.CurrentScore += 50;
 
-            TimeController.Instance.ModifyTimeScale(0.2f, 0.01f, () =>
+            /*TimeController.Instance.ModifyTimeScale(0.3f, 0.01f, () =>
             {
                 TimeController.Instance.ModifyTimeScale(1f, 0.01f);
             });
-            CameraManager.Instance.ShakeCam(1f, 0.4f);
+            CameraManager.Instance.ShakeCam(1f, 0.4f);*/
             PoolManager.Instance.Push(this);
             //PoolManager.Instance.Push(collision.GetComponent<Enemy>());
         }
@@ -40,11 +40,11 @@ public class Bullet : PoolableMono
         if (collision.CompareTag("Boss"))
         {
             ScoreManager.Instance.CurrentScore += 300;
-            TimeController.Instance.ModifyTimeScale(0.2f, 0.01f, () =>
+            /*TimeController.Instance.ModifyTimeScale(0.3f, 0.01f, () =>
             {
                 TimeController.Instance.ModifyTimeScale(1f, 0.01f);
             });
-            CameraManager.Instance.ShakeCam(1f, 0.4f);
+            CameraManager.Instance.ShakeCam(1f, 0.4f);*/
             HpManager.Instance.BossHpDown(_bulletDamage);
             PoolManager.Instance.Push(this);
         }

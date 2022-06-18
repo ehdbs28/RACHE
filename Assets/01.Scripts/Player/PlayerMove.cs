@@ -35,6 +35,7 @@ public class PlayerMove : MonoBehaviour
         {
             Move();
             Flash();
+            BlankBullet();
         }
     }
 
@@ -64,7 +65,7 @@ public class PlayerMove : MonoBehaviour
             float y = Input.GetAxisRaw("Vertical");
 
             dir = new Vector3(x, y, 0);
-            dir.Normalize();
+            //dir.Normalize();
 
             if (x > 0)
             {
@@ -84,7 +85,17 @@ public class PlayerMove : MonoBehaviour
                 _anim.SetBool("isMove", false);
             }
 
-            _rigid.MovePosition(transform.position + dir * _defaultSpeed * Time.deltaTime);
+            _rigid.position += (Vector2)dir.normalized * _defaultSpeed * Time.deltaTime;
+        }
+    }
+
+    private void BlankBullet()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            CameraManager.Instance.ShakeCam(5, 0.2f);
+            BlankBullet blankBullet = PoolManager.Instance.Pop("BlankBullet") as BlankBullet;
+            //blankBullet.transform.position = transform.position;
         }
     }
 }
