@@ -701,7 +701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a07da1c500d505f4bad64f2f42e5383c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 40
+  _moveSpeed: 10
   _playerDashLimit: {fileID: 607232754}
 --- !u!212 &301199158
 SpriteRenderer:
@@ -1772,7 +1772,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
   m_PivotOffset: {x: 0, y: 0, z: 0}
-  m_AmplitudeGain: 0
+  m_AmplitudeGain: 1.898757
   m_FrequencyGain: 1
   mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028

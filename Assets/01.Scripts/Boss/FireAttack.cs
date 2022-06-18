@@ -53,7 +53,7 @@ public class FireAttack : PoolableMono
 
     IEnumerator Damage()
     {
-        HpManager.Instance.HPDown(5f);
+        HpManager.Instance.HPDown(8f);
         yield return new WaitForSeconds(0.1f);
     }
 

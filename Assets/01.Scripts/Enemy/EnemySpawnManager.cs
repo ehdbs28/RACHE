@@ -42,7 +42,7 @@ public class EnemySpawnManager : MonoBehaviour
                 enemy.transform.position = new Vector3(x, y);
                 enemy.transform.rotation = Quaternion.identity;
             }
-            yield return new WaitForSeconds(7f);
+            yield return new WaitForSeconds(4f);
         } 
     }
 }

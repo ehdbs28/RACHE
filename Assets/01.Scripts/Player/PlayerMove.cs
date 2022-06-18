@@ -7,7 +7,7 @@ using DG.Tweening;
 
 public class PlayerMove : MonoBehaviour
 {
-    [SerializeField] private float _moveSpeed = 5f;
+    [SerializeField] private float _moveSpeed;
     [SerializeField] private Slider _playerDashLimit;
     private float _defaultSpeed;
 
