@@ -21,6 +21,8 @@ public class StageManager : MonoBehaviour
     private bool _isGameStart = false;
     public bool IsGameStart
     {
+        set => _isGameStart = value;
+
         get => _isGameStart;
     }
 

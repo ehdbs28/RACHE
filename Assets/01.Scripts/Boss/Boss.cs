@@ -33,6 +33,9 @@ public class Boss : MonoBehaviour
     private bool _isDeath = false;
     public bool IsDeath { get => _isDeath; set => _isDeath = value; }
 
+    private float _stateChangeDelay = 3f;
+    public float StageteChangeDelay { get => _stateChangeDelay; set => _stateChangeDelay = value; }
+
     private void Start()
     {
         fsm = new StateMachine<State>(this);
@@ -67,8 +70,8 @@ public class Boss : MonoBehaviour
     {
         Dictionary<string, int> diction = new Dictionary<string, int>();
         int num, randomNum;
-        yield return new WaitForSeconds(3f);
-        while (_isDeath == false)
+        yield return new WaitUntil(()=> StageManager.Instance.IsGameStart == true);
+        while (!_isDeath && StageManager.Instance.IsGameStart == true)
         {
             num = Random.Range(1, 4);
 
@@ -87,7 +90,7 @@ public class Boss : MonoBehaviour
                 continue;
             }
 
-            Debug.Log(randomNum);
+            Debug.Log($"{randomNum} ¹ø ÆÐÅÏ");
 
             if(randomNum == 1)
             {
@@ -101,7 +104,7 @@ public class Boss : MonoBehaviour
             {
                 fsm.ChangeState(State.BulletAttack);
             }
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(_stateChangeDelay);
         }
     }
 
@@ -175,7 +178,6 @@ public class Boss : MonoBehaviour
 
     private void BossAttackMotion(string name)
     {
-        //StopAllCoroutines();
         StartCoroutine(name);
     }
 
@@ -183,12 +185,8 @@ public class Boss : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(1f);
         _anim.SetBool("isAttack", true);
-        yield return new WaitForSecondsRealtime(0.8f);
-        BossBreath bossBreath = PoolManager.Instance.Pop("BossBreath") as BossBreath;
-        bossBreath.transform.position = new Vector2(-3.85f, 9.73f);
-        yield return new WaitForSecondsRealtime(1.2f);
+        yield return new WaitForSecondsRealtime(2f);
         _anim.SetBool("isAttack", false);
-        PoolManager.Instance.Push(GameObject.Find("Manager/BossBreath").GetComponent<PoolableMono>());
     }
 
     IEnumerator BulletAttackCoroutine()
