@@ -9,6 +9,7 @@ public class PlayerMove : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed;
     [SerializeField] private Slider _playerDashLimit;
+    [SerializeField] private List<GameObject> _BlankBulletLimit = new List<GameObject>();
     private float _defaultSpeed;
 
     private Rigidbody2D _rigid;
@@ -93,9 +94,17 @@ public class PlayerMove : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            CameraManager.Instance.ShakeCam(5, 0.2f);
-            BlankBullet blankBullet = PoolManager.Instance.Pop("BlankBullet") as BlankBullet;
-            //blankBullet.transform.position = transform.position;
+            if(_BlankBulletLimit.Count > 0)
+            {
+                _BlankBulletLimit[0].SetActive(false);
+                _BlankBulletLimit.RemoveAt(0);
+                CameraManager.Instance.ShakeCam(5, 0.2f);
+                BlankBullet blankBullet = PoolManager.Instance.Pop("BlankBullet") as BlankBullet;
+            }
+            else
+            {
+                CameraManager.Instance.ShakeCam(3, 0.2f);
+            }
         }
     }
 }

@@ -32,6 +32,9 @@ TextureImporter:
   - first:
       213: -3283003759167633688
     second: GUI_4x_9
+  - first:
+      213: -3274797533910617290
+    second: GUI_4x_10
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -62,7 +65,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -321,7 +324,7 @@ TextureImporter:
         width: 64
         height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -342,7 +345,7 @@ TextureImporter:
         width: 48
         height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -350,6 +353,27 @@ TextureImporter:
       bones: []
       spriteID: 8e68a82a97d6072d0800000000000000
       internalID: -3283003759167633688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GUI_4x_10
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 160
+        width: 33
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 633bee75ef49d82d0800000000000000
+      internalID: -3274797533910617290
       vertices: []
       indices: 
       edges: []
