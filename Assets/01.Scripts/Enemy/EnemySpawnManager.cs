@@ -8,7 +8,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     private Boss _bossScript;
 
-    private int _maxEnemy = 5;
+    private int _maxEnemy = 4;
 
     private float x;
     private float y;

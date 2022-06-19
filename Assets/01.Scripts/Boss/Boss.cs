@@ -228,7 +228,6 @@ public class Boss : MonoBehaviour
             fireSkullAttack.transform.position = i % 2 == 0 ? new Vector3(-16f, randomPosY) : new Vector3(16f, randomPosY);
             fireSkullAttack.transform.localScale = fireSkullAttack.transform.position.x > 0 ? new Vector3(1, 1, 1) : new Vector3(-1, 1, 1);
             yield return new WaitForSeconds(1f);
-
         }
     }
 }

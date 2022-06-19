@@ -42,7 +42,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Flash()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(1))
         {
             if(_playerDashLimit.value == 1)
             {
@@ -92,7 +92,7 @@ public class PlayerMove : MonoBehaviour
 
     private void BlankBullet()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if(_BlankBulletLimit.Count > 0)
             {
