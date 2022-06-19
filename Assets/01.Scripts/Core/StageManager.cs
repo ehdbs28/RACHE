@@ -13,11 +13,25 @@ public class StageManager : MonoBehaviour
     [SerializeField] GameObject _upOpenDoor;
     [SerializeField] GameObject _downCloseDoor;
     [SerializeField] GameObject _downOpenDoor;
+    [SerializeField] GameObject _escPanel;
+    [SerializeField] GameObject _settingPanel;
 
     private Vector3 _initPos = new Vector3(0, -4.5f, 0);
     private RectTransform _blackImage;
     private Image _blackPanelImg;
     private Transform _playerTrm;
+    private bool _isESC = false;
+    public bool IsESC
+    {
+        set => _isESC = value;
+        get => _isESC;
+    }
+    private bool _isSetting = false;
+    public bool IsSetting
+    {
+        set => _isSetting = value;
+        get => _isSetting;
+    }
     private bool _isGameStart = false;
     public bool IsGameStart
     {
@@ -54,6 +68,15 @@ public class StageManager : MonoBehaviour
         {
             StageStart();
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            _isESC = true;
+        }
+
+        _escPanel.SetActive(_isESC ? true : false);
+        _settingPanel.SetActive(_isSetting ? true : false);
+        Time.timeScale = _isESC || _isSetting ? 0 : 1;
     }
 
     public void BlackScreen()

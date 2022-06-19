@@ -26,12 +26,13 @@ public class ESCMenu : BtnManager
         {
             if (_currentBtnNum == 2)
             {
-                Debug.Log("계속하기");
+                StageManager.Instance.IsESC = false;
             }
 
             if (_currentBtnNum == 1)
             {
-                Debug.Log("설정");
+                StageManager.Instance.IsESC = false;
+                StageManager.Instance.IsSetting = true;
             }
 
             if(_currentBtnNum == 0)

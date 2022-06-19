@@ -32,7 +32,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        if(StageManager.Instance.IsGameStart == true)
+        if(StageManager.Instance.IsGameStart == true && StageManager.Instance.IsESC == false && StageManager.Instance.IsSetting == false)
         {
             Move();
             Flash();
