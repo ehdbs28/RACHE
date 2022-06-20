@@ -37,7 +37,7 @@ public class ESCMenu : BtnManager
 
             if(_currentBtnNum == 0)
             {
-                Debug.Log("Á¾·á");
+                SceneManager.LoadScene("GameTitle");
             }
         }
     }

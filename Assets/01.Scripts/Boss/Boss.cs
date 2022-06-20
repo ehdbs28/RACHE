@@ -211,11 +211,11 @@ public class Boss : MonoBehaviour
     {
         _bossFireEffect.SetActive(true);
         yield return new WaitUntil(() => _bossFireEffect.active == false);
-        for(int i = 17; i >= -3; i--)
+        for (int i = 17; i >= -3; i--)
         {
             ExplosionAttack explosionAtk = PoolManager.Instance.Pop("ExplosionAttack") as ExplosionAttack;
             explosionAtk.transform.position = new Vector3(0, i);
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.3f);
             PoolManager.Instance.Push(FindObjectOfType<ExplosionAttack>());
         }
     }

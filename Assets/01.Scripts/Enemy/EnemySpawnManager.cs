@@ -8,7 +8,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     private Boss _bossScript;
 
-    private int _maxEnemy = 4;
+    private int _maxEnemy = 3;
 
     private float x;
     private float y;
@@ -42,7 +42,7 @@ public class EnemySpawnManager : MonoBehaviour
                 enemy.transform.position = new Vector3(x, y);
                 enemy.transform.rotation = Quaternion.identity;
             }
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSeconds(5f);
         } 
     }
 }
