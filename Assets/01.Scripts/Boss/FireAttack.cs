@@ -8,7 +8,7 @@ public class FireAttack : PoolableMono
 
     private float circleScale = 2f;
     private float iteration = 0;
-    private float speed = 10f;
+    private float speed = 8f;
     private Vector3 targetDir = Vector3.zero;
 
     private void Start()

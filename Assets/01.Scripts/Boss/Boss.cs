@@ -12,10 +12,12 @@ public class Boss : MonoBehaviour
         HorseAttack,
         BreathAttack,
         BulletAttack,
+        FireAttack,
         Death
     }
 
     [SerializeField] private GameObject _bossDeathEfx;
+    [SerializeField] private GameObject _bossFireEffect;
     [SerializeField] private List<Vector2> _fireAttackPos = new List<Vector2>();
     [SerializeField] private GameObject boss;
 
@@ -73,9 +75,9 @@ public class Boss : MonoBehaviour
         yield return new WaitUntil(()=> StageManager.Instance.IsGameStart == true);
         while (!_isDeath && StageManager.Instance.IsGameStart == true)
         {
-            num = Random.Range(1, 4);
+            num = Random.Range(1, 5);
 
-            if (diction.ContainsKey("1") && diction.ContainsKey("2") && diction.ContainsKey("3"))
+            if (diction.ContainsKey("1") && diction.ContainsKey("2") && diction.ContainsKey("3") && diction.ContainsKey("4"))
             {
                 diction.Clear();
             }
@@ -104,6 +106,10 @@ public class Boss : MonoBehaviour
             {
                 fsm.ChangeState(State.BulletAttack);
             }
+            if(randomNum == 4)
+            {
+                fsm.ChangeState(State.FireAttack);
+            }
             yield return new WaitForSeconds(_stateChangeDelay);
         }
     }
@@ -115,7 +121,8 @@ public class Boss : MonoBehaviour
 
     private void HorseAttack_Enter()
     {
-        if(_isDeath != true)
+        if (_isDeath != true)
+            _stateChangeDelay = 4f;
             BossAttackMotion("FireSkullAttack");
     }
 
@@ -123,6 +130,7 @@ public class Boss : MonoBehaviour
     {
         if(_isDeath != true)
         {
+            _stateChangeDelay = 4f;
             BossAttackMotion("AttackCoroutine");
             Invoke("BossBreathAttack", 3f);
         }
@@ -132,7 +140,17 @@ public class Boss : MonoBehaviour
     {
         if(_isDeath != true)
         {
+            _stateChangeDelay = 5f;
             BossAttackMotion("BulletAttackCoroutine");
+        }
+    }
+
+    private void FireAttack_Enter()
+    {
+        if(_isDeath != true)
+        {
+            _stateChangeDelay = 5f;
+            BossAttackMotion("FireAttackCoroutine");
         }
     }
 
@@ -187,6 +205,19 @@ public class Boss : MonoBehaviour
         _anim.SetBool("isAttack", true);
         yield return new WaitForSecondsRealtime(2f);
         _anim.SetBool("isAttack", false);
+    }
+
+    IEnumerator FireAttackCoroutine()
+    {
+        _bossFireEffect.SetActive(true);
+        yield return new WaitUntil(() => _bossFireEffect.active == false);
+        for(int i = 17; i >= -3; i--)
+        {
+            ExplosionAttack explosionAtk = PoolManager.Instance.Pop("ExplosionAttack") as ExplosionAttack;
+            explosionAtk.transform.position = new Vector3(0, i);
+            yield return new WaitForSeconds(0.2f);
+            PoolManager.Instance.Push(FindObjectOfType<ExplosionAttack>());
+        }
     }
 
     IEnumerator BulletAttackCoroutine()
