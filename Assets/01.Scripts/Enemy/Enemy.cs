@@ -6,6 +6,7 @@ using DG.Tweening;
 public class Enemy : PoolableMono
 {
     [SerializeField] private float _enemySpeed = 2f;
+    private AudioSource _enemyExplosion;
 
     private SpriteRenderer _enemySprite;
     private bool isActive = false;
@@ -29,6 +30,7 @@ public class Enemy : PoolableMono
         _playerTrm = GameObject.Find("Player").GetComponent<Transform>();
         _anim = GetComponent<Animator>();
         _bossScript = GameObject.Find("DemonBoss").GetComponent<Boss>();
+        _enemyExplosion = GetComponent<AudioSource>();
     }
 
     private void OnDisable()
@@ -82,24 +84,29 @@ public class Enemy : PoolableMono
         sq.Append(transform.DOScale(new Vector3(0, 0, 0), 0.2f));
         sq.OnComplete(() =>
         {
-            if (!_bossScript.IsDeath)
+            _enemyExplosion.Play();
+
+            /*if (!_bossScript.IsDeath)
             {
                 StartCoroutine(MakeBullet());
-            }
-            PoolManager.Instance.Push(this);
+             }*/
+            StartCoroutine(MakeBullet());
+
+            //PoolManager.Instance.Push(this);
         });
     }
 
     IEnumerator MakeBullet()
     {
-        for(int fireAngle = _startAngle; fireAngle < _endAngle; fireAngle += _angleInterval)
+        for (int fireAngle = _startAngle; fireAngle < _endAngle; fireAngle += _angleInterval)
         {
             EnemyBullet enemyBullet = PoolManager.Instance.Pop("EnemyBullet") as EnemyBullet;
             Vector2 dir = new Vector2(Mathf.Cos(fireAngle * Mathf.Deg2Rad), Mathf.Sin(fireAngle * Mathf.Deg2Rad));
             enemyBullet.transform.right = dir;
             enemyBullet.transform.position = transform.position;
         }
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
+        PoolManager.Instance.Push(this);
     }
 
     public override void Reset()

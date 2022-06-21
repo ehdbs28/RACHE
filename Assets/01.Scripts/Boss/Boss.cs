@@ -20,6 +20,13 @@ public class Boss : MonoBehaviour
     [SerializeField] private GameObject _bossFireEffect;
     [SerializeField] private List<Vector2> _fireAttackPos = new List<Vector2>();
     [SerializeField] private GameObject boss;
+    [SerializeField] private AudioSource _bossAudio;
+
+    [Header("보스 오디오 클립")]
+    [SerializeField] private AudioClip _breathClip;
+    [SerializeField] private AudioClip _clearExplosionClip;
+    [SerializeField] private AudioClip _flameClip;
+    [SerializeField] private AudioClip _bulletClip;
 
     private Sequence sq;
 
@@ -170,6 +177,8 @@ public class Boss : MonoBehaviour
 
         _bossDeathEfx.SetActive(true);
         sq.Append(_bossDeathEfx.transform.DOScale(new Vector3(3f, 3f, 3f), 2.5f));
+        _bossAudio.clip = _clearExplosionClip;
+        _bossAudio.Play();
         sq.Append(_bossDeathEfx.transform.DOScale(new Vector3(0, 0, 0), 0.2f));
         sq.OnComplete(()=>
         {
@@ -203,6 +212,8 @@ public class Boss : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(1f);
         _anim.SetBool("isAttack", true);
+        _bossAudio.clip = _breathClip;
+        _bossAudio.Play();
         yield return new WaitForSecondsRealtime(2f);
         _anim.SetBool("isAttack", false);
     }
@@ -210,6 +221,8 @@ public class Boss : MonoBehaviour
     IEnumerator FireAttackCoroutine()
     {
         _bossFireEffect.SetActive(true);
+        _bossAudio.clip = _flameClip;
+        _bossAudio.Play();
         yield return new WaitUntil(() => _bossFireEffect.active == false);
         for (int i = 17; i >= -3; i--)
         {
@@ -225,6 +238,9 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(2f);
         for(int i = 0; i < 3; i++)
         {
+            _bossAudio.clip = _bulletClip;
+            _bossAudio.Play();
+
             sq = DOTween.Sequence();
 
             sq.Append(boss.transform.DOMoveY(boss.transform.position.y + 2, 0.3f));
