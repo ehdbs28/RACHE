@@ -10,6 +10,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float _moveSpeed;
     [SerializeField] private Slider _playerDashLimit;
     [SerializeField] private List<GameObject> _BlankBulletLimit = new List<GameObject>();
+
     private float _defaultSpeed;
 
     private Rigidbody2D _rigid;
