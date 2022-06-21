@@ -40,6 +40,8 @@ public class StageManager : MonoBehaviour
         get => _isGameStart;
     }
 
+    private Sequence seq;
+
     private void Awake()
     {
         if(Instance == null)
@@ -66,7 +68,9 @@ public class StageManager : MonoBehaviour
     {
         if(_playerTrm.position.y >= 18f)
         {
-            StageStart();
+            BlackScreenUp();
+            _playerTrm.position = _initPos;
+            Invoke("SceneChange", 1f);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -79,10 +83,21 @@ public class StageManager : MonoBehaviour
         Time.timeScale = _isESC || _isSetting ? 0 : 1;
     }
 
-    public void BlackScreen()
+    public void SceneChange()
     {
-        Sequence seq = DOTween.Sequence();
+        seq.Kill();
+        SceneManager.LoadScene("StartCutScene");
+    }
+
+    public void BlackScreenUp()
+    {
+        seq = DOTween.Sequence();
         seq.Append(_blackPanelImg.DOFade(1, 0.5f));
+    }
+
+    public void BlackScreenDown()
+    {
+        seq = DOTween.Sequence();
         seq.Append(_blackPanelImg.DOFade(0, 0.5f));
     }
 
@@ -93,7 +108,8 @@ public class StageManager : MonoBehaviour
 
         _downCloseDoor.SetActive(true);
         _downOpenDoor.SetActive(false);
-        BlackScreen();
+        BlackScreenUp();
+        Invoke("BlackScreenDown", 0.5f);
 
         _playerTrm.position = _initPos;
     }
@@ -113,9 +129,11 @@ public class StageManager : MonoBehaviour
 
     public void StageClear()
     {
+        _upCloseDoor.SetActive(false);
+        _upOpenDoor.SetActive(true);
+
         _downCloseDoor.SetActive(false);
         _downOpenDoor.SetActive(true);
-        BlackScreen();
         //SceneManager.LoadScene("StartCutScene");
     }
 }

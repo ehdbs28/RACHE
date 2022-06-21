@@ -62,13 +62,17 @@ public class Boss : MonoBehaviour
         sq.Kill();
     }
 
-    /*private void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
+        if (_isDeath)
         {
-            fsm.ChangeState(State.Death);
+            GameObject[] allEnemy = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach (GameObject item in allEnemy)
+            {
+                PoolManager.Instance.Push(item.GetComponent<PoolableMono>());
+            }
         }
-    }*/
+    }
 
     public void ChangeBossDeath()
     {
@@ -167,11 +171,11 @@ public class Boss : MonoBehaviour
 
         CameraManager.Instance.ShakeCam(40f, 0.5f);
 
-        GameObject[] allEnemy = GameObject.FindGameObjectsWithTag("Enemy");
+        /*GameObject[] allEnemy = GameObject.FindGameObjectsWithTag("Enemy");
         foreach(GameObject item in allEnemy)
         {
             PoolManager.Instance.Push(item.GetComponent<PoolableMono>());
-        }
+        }*/
 
         sq = DOTween.Sequence();
 

@@ -86,11 +86,10 @@ public class Enemy : PoolableMono
         {
             _enemyExplosion.Play();
 
-            /*if (!_bossScript.IsDeath)
+            if (!_bossScript.IsDeath)
             {
                 StartCoroutine(MakeBullet());
-             }*/
-            StartCoroutine(MakeBullet());
+             }
 
             //PoolManager.Instance.Push(this);
         });

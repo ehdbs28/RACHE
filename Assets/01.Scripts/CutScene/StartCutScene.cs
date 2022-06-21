@@ -41,6 +41,7 @@ public class StartCutScene : MonoBehaviour
 
     private void SceneChange()
     {
+        sq.Kill();
         _talkTxt.text = "";
 
         sq = DOTween.Sequence();
