@@ -113,10 +113,9 @@ public class StageManager : MonoBehaviour
 
     public void StageClear()
     {
-        _upCloseDoor.SetActive(false);
-        _upOpenDoor.SetActive(true);
-
         _downCloseDoor.SetActive(false);
         _downOpenDoor.SetActive(true);
+        BlackScreen();
+        //SceneManager.LoadScene("StartCutScene");
     }
 }

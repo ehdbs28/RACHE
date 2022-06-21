@@ -223,7 +223,7 @@ public class Boss : MonoBehaviour
         _bossFireEffect.SetActive(true);
         _bossAudio.clip = _flameClip;
         _bossAudio.Play();
-        yield return new WaitUntil(() => _bossFireEffect.active == false);
+        yield return new WaitUntil(() => _bossFireEffect.activeSelf == false);
         for (int i = 17; i >= -3; i--)
         {
             ExplosionAttack explosionAtk = PoolManager.Instance.Pop("ExplosionAttack") as ExplosionAttack;
