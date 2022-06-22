@@ -11,11 +11,10 @@ public class FireAttack : PoolableMono
     private float speed = 8f;
     private Vector3 targetDir = Vector3.zero;
 
-    private void Start()
+    private void Awake()
     {
         targetDir = Vector3.zero;
-        targetTrm = GameObject.Find("Player").GetComponent<Transform>();
-        targetDir = targetTrm.position - transform.position;
+        targetTrm = GameObject.Find("Player").transform;
     }
 
     /*private void OnEnable()
@@ -37,7 +36,10 @@ public class FireAttack : PoolableMono
             PoolManager.Instance.Push(this);
         }
     }
-
+    public void SetTargetPosition()
+    {
+        targetDir = targetTrm.position - transform.position;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))

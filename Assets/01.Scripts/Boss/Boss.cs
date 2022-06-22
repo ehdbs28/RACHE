@@ -205,6 +205,7 @@ public class Boss : MonoBehaviour
         {
             FireAttack fireAttack = PoolManager.Instance.Pop("FireAttack") as FireAttack;
             fireAttack.transform.position = _fireAttackPos[i];
+            fireAttack.SetTargetPosition();
         }
     }
 
