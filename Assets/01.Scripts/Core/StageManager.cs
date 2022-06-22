@@ -75,6 +75,7 @@ public class StageManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            _isSetting = false;
             _isESC = true;
         }
 

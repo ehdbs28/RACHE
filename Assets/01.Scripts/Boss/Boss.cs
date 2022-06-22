@@ -13,10 +13,12 @@ public class Boss : MonoBehaviour
         BreathAttack,
         BulletAttack,
         FireAttack,
+        HandAttack,
         Death
     }
 
     [SerializeField] private GameObject _bossDeathEfx;
+    [SerializeField] private GameObject _handAttackDanger;
     [SerializeField] private GameObject _bossFireEffect;
     [SerializeField] private List<Vector2> _fireAttackPos = new List<Vector2>();
     [SerializeField] private GameObject boss;
@@ -87,9 +89,9 @@ public class Boss : MonoBehaviour
         yield return new WaitUntil(()=> StageManager.Instance.IsGameStart == true);
         while (!_isDeath && StageManager.Instance.IsGameStart == true)
         {
-            num = Random.Range(1, 5);
+            num = Random.Range(1, 6);
 
-            if (diction.ContainsKey("1") && diction.ContainsKey("2") && diction.ContainsKey("3") && diction.ContainsKey("4"))
+            if (diction.ContainsKey("1") && diction.ContainsKey("2") && diction.ContainsKey("3") && diction.ContainsKey("4") && diction.ContainsKey("5"))
             {
                 diction.Clear();
             }
@@ -121,6 +123,10 @@ public class Boss : MonoBehaviour
             if(randomNum == 4)
             {
                 fsm.ChangeState(State.FireAttack);
+            }
+            if(randomNum == 5)
+            {
+                fsm.ChangeState(State.HandAttack);
             }
             yield return new WaitForSeconds(_stateChangeDelay);
         }
@@ -163,6 +169,15 @@ public class Boss : MonoBehaviour
         {
             _stateChangeDelay = 3f;
             BossAttackMotion("FireAttackCoroutine");
+        }
+    }
+
+    private void HandAttack_Enter()
+    {
+        if(_isDeath != true)
+        {
+            _stateChangeDelay = 3f;
+            StartCoroutine("HandAttackCoroutine");
         }
     }
 
@@ -224,6 +239,17 @@ public class Boss : MonoBehaviour
         _anim.SetBool("isAttack", false);
     }
 
+    IEnumerator HandAttackCoroutine()
+    {
+        _handAttackDanger.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        _handAttackDanger.SetActive(false);
+        HandAttack handAttack = PoolManager.Instance.Pop("HandAttacks") as HandAttack;
+        handAttack.transform.position = transform.position;
+        yield return new WaitForSeconds(0.5f);
+        PoolManager.Instance.Push(handAttack);
+    }
+
     IEnumerator FireAttackCoroutine()
     {
         _bossFireEffect.SetActive(true);
@@ -235,6 +261,7 @@ public class Boss : MonoBehaviour
             ExplosionAttack explosionAtk = PoolManager.Instance.Pop("ExplosionAttack") as ExplosionAttack;
             explosionAtk.transform.position = new Vector3(0, i);
             yield return new WaitForSeconds(0.3f);
+            if (_isDeath) break;
             PoolManager.Instance.Push(FindObjectOfType<ExplosionAttack>());
         }
     }
