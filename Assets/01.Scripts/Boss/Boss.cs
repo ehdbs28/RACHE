@@ -161,7 +161,7 @@ public class Boss : MonoBehaviour
     {
         if(_isDeath != true)
         {
-            _stateChangeDelay = 5f;
+            _stateChangeDelay = 3f;
             BossAttackMotion("FireAttackCoroutine");
         }
     }
@@ -270,13 +270,15 @@ public class Boss : MonoBehaviour
     {
         for(int i = 0; i < 3; i++)
         {
+            float posY = _playerTrm.position.y;
+
             FireSkull dangerMark = PoolManager.Instance.Pop("DangerMark") as FireSkull;
-            dangerMark.transform.position = new Vector3(0, _playerTrm.position.y, 0);
+            dangerMark.transform.position = new Vector3(0, posY, 0);
 
             yield return new WaitForSeconds(1f);
             PoolManager.Instance.Push(GameObject.Find("DangerMark").GetComponent<PoolableMono>());
             FireSkull fireSkullAttack = PoolManager.Instance.Pop("Fire_Skull") as FireSkull;
-            fireSkullAttack.transform.position = i % 2 == 0 ? new Vector3(-16f, _playerTrm.position.y) : new Vector3(16f, _playerTrm.position.y);
+            fireSkullAttack.transform.position = i % 2 == 0 ? new Vector3(-16f, posY) : new Vector3(16f, posY);
             fireSkullAttack.transform.localScale = fireSkullAttack.transform.position.x > 0 ? new Vector3(1, 1, 1) : new Vector3(-1, 1, 1);
             yield return new WaitForSeconds(1f);
         }
