@@ -37,21 +37,22 @@ public class Boss : MonoBehaviour
     private int _startAngle = 0;
     private int _endAngle = 360;
 
-    private float randomPosY;
-
     private bool _isDeath = false;
     public bool IsDeath { get => _isDeath; set => _isDeath = value; }
 
     private float _stateChangeDelay = 3f;
     public float StageteChangeDelay { get => _stateChangeDelay; set => _stateChangeDelay = value; }
 
+    private Transform _playerTrm;
+
     private void Start()
     {
         fsm = new StateMachine<State>(this);
 
         fsm.ChangeState(State.Init);
-
         _anim = GetComponent<Animator>();
+        _playerTrm = GameObject.Find("Player").GetComponent<Transform>();
+
         BossAttackMotion("AttackCoroutine");
 
         StartCoroutine(ChangeState());
@@ -269,14 +270,13 @@ public class Boss : MonoBehaviour
     {
         for(int i = 0; i < 3; i++)
         {
-            randomPosY = Random.Range(-1f, 9f);
             FireSkull dangerMark = PoolManager.Instance.Pop("DangerMark") as FireSkull;
-            dangerMark.transform.position = new Vector3(0, randomPosY, 0);
+            dangerMark.transform.position = new Vector3(0, _playerTrm.position.y, 0);
 
             yield return new WaitForSeconds(1f);
             PoolManager.Instance.Push(GameObject.Find("DangerMark").GetComponent<PoolableMono>());
             FireSkull fireSkullAttack = PoolManager.Instance.Pop("Fire_Skull") as FireSkull;
-            fireSkullAttack.transform.position = i % 2 == 0 ? new Vector3(-16f, randomPosY) : new Vector3(16f, randomPosY);
+            fireSkullAttack.transform.position = i % 2 == 0 ? new Vector3(-16f, _playerTrm.position.y) : new Vector3(16f, _playerTrm.position.y);
             fireSkullAttack.transform.localScale = fireSkullAttack.transform.position.x > 0 ? new Vector3(1, 1, 1) : new Vector3(-1, 1, 1);
             yield return new WaitForSeconds(1f);
         }
