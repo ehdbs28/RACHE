@@ -11,10 +11,13 @@ public class FireAttack : PoolableMono
     private float speed = 8f;
     private Vector3 targetDir = Vector3.zero;
 
+    private Animator _playerAnim;
+
     private void Awake()
     {
         targetDir = Vector3.zero;
         targetTrm = GameObject.Find("Player").transform;
+        _playerAnim = GameObject.Find("Player").GetComponent<Animator>();
     }
 
     /*private void OnEnable()
@@ -55,6 +58,7 @@ public class FireAttack : PoolableMono
 
     IEnumerator Damage()
     {
+        _playerAnim.SetTrigger("isDamaged");
         HpManager.Instance.HPDown(8f);
         yield return new WaitForSeconds(0.1f);
     }

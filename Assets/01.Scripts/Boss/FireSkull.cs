@@ -10,6 +10,8 @@ public class FireSkull : PoolableMono
     private SpriteRenderer sr;
     private Vector2 dir;
 
+    private Animator _playerAnim;
+
     private void Start()
     {
         if (gameObject.CompareTag("DangerMark"))
@@ -19,6 +21,7 @@ public class FireSkull : PoolableMono
             DangerMarkFade();
         }
         dir = transform.position.x > 0 ? Vector3.right * -1 : Vector3.right;
+        _playerAnim = GameObject.Find("Player").GetComponent<Animator>();
     }
 
     private void Update()
@@ -66,6 +69,7 @@ public class FireSkull : PoolableMono
 
     IEnumerator Damage()
     {
+        _playerAnim.SetTrigger("isDamaged");
         HpManager.Instance.HPDown(5f);
         yield return new WaitForSeconds(0.1f);
     }
