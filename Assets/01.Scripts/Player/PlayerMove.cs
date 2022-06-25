@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class PlayerMove : MonoBehaviour
+public class PlayerMove : MonoBehaviour, IDamaged
 {
     [SerializeField] private float _moveSpeed;
     [SerializeField] private Slider _playerDashLimit;
@@ -14,6 +14,7 @@ public class PlayerMove : MonoBehaviour
     private float _defaultSpeed;
 
     private Rigidbody2D _rigid;
+    private AudioSource _playerAudio;
     private Animator _anim = null;
     private SpriteRenderer _playerSprite;
     private Vector3 dir = Vector3.zero;
@@ -26,6 +27,7 @@ public class PlayerMove : MonoBehaviour
 
         _rigid = GetComponent<Rigidbody2D>();
         _playerSprite = GetComponent<SpriteRenderer>();
+        _playerAudio = GetComponent<AudioSource>();
         _anim = GetComponent<Animator>();
 
         _playerDashLimit.value = 1;
@@ -107,5 +109,12 @@ public class PlayerMove : MonoBehaviour
                 CameraManager.Instance.ShakeCam(3, 0.2f);
             }
         }
+    }
+
+    public void OnDamaged(float damage)
+    {
+        _anim.SetTrigger("isDamaged");
+        _playerAudio.Play();
+        HpManager.Instance.HPDown(damage);
     }
 }

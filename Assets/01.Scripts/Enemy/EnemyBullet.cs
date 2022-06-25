@@ -6,11 +6,9 @@ public class EnemyBullet : PoolableMono
 {
     private Rigidbody2D _rigid2D;
     private float _speed = 10f;
-    private Animator _playerAnim;
 
     private void Start()
     {
-        _playerAnim = GameObject.Find("Player").GetComponent<Animator>();
         _rigid2D = GetComponent<Rigidbody2D>();
     }
     private void Update()
@@ -26,13 +24,18 @@ public class EnemyBullet : PoolableMono
         }
         if (collision.CompareTag("Player"))
         {
+            IDamaged damage = collision.GetComponent<IDamaged>();
+
+            if(damage != null)
+            {
+                damage.OnDamaged(10f);
+            }
+
             TimeController.Instance.ModifyTimeScale(0.2f, 0.01f, () =>
             {
                 TimeController.Instance.ModifyTimeScale(1f, 0.01f);
             });
             CameraManager.Instance.ShakeCam(2f, 0.4f);
-            _playerAnim.SetTrigger("isDamaged");
-            HpManager.Instance.HPDown(10f);
             PoolManager.Instance.Push(this);
         }
         if (collision.CompareTag("BlankBullet"))

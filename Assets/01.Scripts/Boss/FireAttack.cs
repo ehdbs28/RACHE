@@ -10,22 +10,13 @@ public class FireAttack : PoolableMono
     private float iteration = 0;
     private float speed = 8f;
     private Vector3 targetDir = Vector3.zero;
-
-    private Animator _playerAnim;
+    private IDamaged damage;
 
     private void Awake()
     {
         targetDir = Vector3.zero;
         targetTrm = GameObject.Find("Player").transform;
-        _playerAnim = GameObject.Find("Player").GetComponent<Animator>();
     }
-
-    /*private void OnEnable()
-    {
-        targetTrm = GameObject.Find("Player").GetComponent<Transform>();
-        targetDir = targetTrm.position - transform.position;
-        Debug.Log(targetDir)
-    }*/
 
     private void Update()
     {
@@ -45,6 +36,8 @@ public class FireAttack : PoolableMono
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        damage = collision.GetComponent<IDamaged>();
+
         if (collision.gameObject.CompareTag("Player"))
         {
             StartCoroutine(Damage());
@@ -58,8 +51,10 @@ public class FireAttack : PoolableMono
 
     IEnumerator Damage()
     {
-        _playerAnim.SetTrigger("isDamaged");
-        HpManager.Instance.HPDown(8f);
+        if(damage != null)
+        {
+            damage.OnDamaged(8f);
+        }
         yield return new WaitForSeconds(0.1f);
     }
 
