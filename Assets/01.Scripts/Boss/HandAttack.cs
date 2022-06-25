@@ -8,6 +8,7 @@ public class HandAttack : PoolableMono
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        damage = collision.GetComponent<IDamaged>();
         if (collision.gameObject.CompareTag("Player"))
         {
             StartCoroutine(Damage());

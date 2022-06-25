@@ -2138,7 +2138,6 @@ MonoBehaviour:
   - {x: -10, y: 20}
   - {x: 10, y: -20}
   - {x: -10, y: -20}
-  boss: {fileID: 334888219}
   _bossAudio: {fileID: 334888225}
   _breathClip: {fileID: 8300000, guid: 66369398c8d8b2448afd6eefc6850429, type: 3}
   _clearExplosionClip: {fileID: 8300000, guid: 433099418899f7d428f5abccc925f9f9, type: 3}

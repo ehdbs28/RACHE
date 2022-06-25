@@ -21,7 +21,6 @@ public class Boss : MonoBehaviour
     [SerializeField] private GameObject _handAttackDanger;
     [SerializeField] private GameObject _bossFireEffect;
     [SerializeField] private List<Vector2> _fireAttackPos = new List<Vector2>();
-    [SerializeField] private GameObject boss;
     [SerializeField] private AudioSource _bossAudio;
 
     [Header("보스 오디오 클립")]
@@ -276,8 +275,8 @@ public class Boss : MonoBehaviour
 
             sq = DOTween.Sequence();
 
-            sq.Append(boss.transform.DOMoveY(boss.transform.position.y + 2, 0.3f));
-            sq.Append(boss.transform.DOMoveY(boss.transform.position.y - 2, 0.2f));
+            sq.Append(transform.DOMoveY(transform.position.y + 2, 0.3f));
+            sq.Append(transform.DOMoveY(transform.position.y - 2, 0.2f));
             sq.OnComplete(()=>
             {
                 CameraManager.Instance.ShakeCam(2, 0.4f);
@@ -288,7 +287,7 @@ public class Boss : MonoBehaviour
                     enemyBullet.transform.right = dir;
                     enemyBullet.transform.position = transform.position;
                 }
-                boss.transform.DOMoveY(13, 0.5f);
+                transform.DOMoveY(13, 0.5f);
             });
             yield return new WaitForSeconds(0.5f);
         }
