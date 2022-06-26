@@ -16,6 +16,8 @@ public class StageManager : MonoBehaviour
     [SerializeField] GameObject _escPanel;
     [SerializeField] GameObject _settingPanel;
 
+    [SerializeField] SpriteRenderer _doyunSpecialSign;
+
     private Vector3 _initPos = new Vector3(0, -4.5f, 0);
     private RectTransform _blackImage;
     private Image _blackPanelImg;
@@ -130,6 +132,12 @@ public class StageManager : MonoBehaviour
 
     public void StageClear()
     {
+        if(HpManager.Instance.CurrentHP == HpManager.Instance.MaxHP)
+        {
+            _doyunSpecialSign.gameObject.SetActive(true);
+            _doyunSpecialSign.DOFade(0, 0);
+            _doyunSpecialSign.DOFade(1, 0.5f);
+        }
         _upCloseDoor.SetActive(false);
         _upOpenDoor.SetActive(true);
 

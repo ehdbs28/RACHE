@@ -17,7 +17,9 @@ public class HpManager : MonoBehaviour
     private float _bossCurrentHP;
 
     private float _maxHP = 100;
+    public float MaxHP { get => _maxHP; }
     private float _currentHP;
+    public float CurrentHP { get => _currentHP; }
 
     private void Awake()
     {
