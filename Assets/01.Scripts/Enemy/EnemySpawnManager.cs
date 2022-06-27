@@ -6,7 +6,6 @@ public class EnemySpawnManager : MonoBehaviour
 {
     public static EnemySpawnManager Instance = null;
 
-    private Boss _bossScript;
 
     private int _maxEnemy = 3;
 
@@ -15,14 +14,12 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void Start()
     {
-        _bossScript = GameObject.Find("DemonBoss").GetComponent<Boss>();
-
-        EnemySpawn(_maxEnemy);
+        EnemySpawn(3);    
     }
 
     public void EnemySpawn(int maxEnemy)
     {
-        if(_bossScript.IsDeath == false)
+        if(StageManager.Instance.IsDeath == false)
         {
             StartCoroutine(EnemySpawnCoroutine(maxEnemy));
         }
@@ -30,11 +27,11 @@ public class EnemySpawnManager : MonoBehaviour
 
     IEnumerator EnemySpawnCoroutine(int maxEnemy)
     {
-        while(_bossScript.IsDeath != true)
+        while(StageManager.Instance.IsDeath != true)
         {
             for (int i = 0; i < maxEnemy; i++)
             {
-                if (_bossScript.IsDeath == true) { break; }
+                if (StageManager.Instance.IsDeath == true) { break; }
                 yield return new WaitForSeconds(0.5f);
                 x = Random.Range(-9f, 9f);
                 y = Random.Range(0, 13f);  //포지션 수정

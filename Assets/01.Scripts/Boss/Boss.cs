@@ -38,8 +38,8 @@ public class Boss : MonoBehaviour
     private int _startAngle = 0;
     private int _endAngle = 360;
 
-    private bool _isDeath = false;
-    public bool IsDeath { get => _isDeath; set => _isDeath = value; }
+    //private bool _isDeath = false;
+    //public bool IsDeath { get => _isDeath; set => _isDeath = value; }
 
     private float _stateChangeDelay = 3f;
     public float StageteChangeDelay { get => _stateChangeDelay; set => _stateChangeDelay = value; }
@@ -54,6 +54,11 @@ public class Boss : MonoBehaviour
         _anim = GetComponent<Animator>();
         _playerTrm = GameObject.Find("Player").GetComponent<Transform>();
 
+        CameraManager.Instance.BossToPlayer(() =>
+        {
+            StageManager.Instance.IsGameStart = true;
+        });
+
         BossAttackMotion("AttackCoroutine");
 
         StartCoroutine(ChangeState());
@@ -66,19 +71,15 @@ public class Boss : MonoBehaviour
 
     private void Update()
     {
-        if (_isDeath)
+        if (StageManager.Instance.IsDeath)
         {
             GameObject[] allEnemy = GameObject.FindGameObjectsWithTag("Enemy");
             foreach (GameObject item in allEnemy)
             {
                 PoolManager.Instance.Push(item.GetComponent<PoolableMono>());
             }
+             fsm.ChangeState(State.Death);
         }
-    }
-
-    public void ChangeBossDeath()
-    {
-        fsm.ChangeState(State.Death);
     }
 
     IEnumerator ChangeState()
@@ -86,7 +87,7 @@ public class Boss : MonoBehaviour
         Dictionary<string, int> diction = new Dictionary<string, int>();
         int num, randomNum;
         yield return new WaitUntil(()=> StageManager.Instance.IsGameStart == true);
-        while (!_isDeath && StageManager.Instance.IsGameStart == true)
+        while (!StageManager.Instance.IsDeath && StageManager.Instance.IsGameStart == true)
         {
             num = Random.Range(1, 6);
 
@@ -138,14 +139,14 @@ public class Boss : MonoBehaviour
 
     private void HorseAttack_Enter()
     {
-        if (_isDeath != true)
+        if (StageManager.Instance.IsDeath != true)
             _stateChangeDelay = 4f;
             BossAttackMotion("FireSkullAttack");
     }
 
     private void BreathAttack_Enter()
     {
-        if(_isDeath != true)
+        if(StageManager.Instance.IsDeath != true)
         {
             _stateChangeDelay = 4f;
             BossAttackMotion("AttackCoroutine");
@@ -155,7 +156,7 @@ public class Boss : MonoBehaviour
 
     private void BulletAttack_Enter()
     {
-        if(_isDeath != true)
+        if(StageManager.Instance.IsDeath != true)
         {
             _stateChangeDelay = 5f;
             BossAttackMotion("BulletAttackCoroutine");
@@ -164,7 +165,7 @@ public class Boss : MonoBehaviour
 
     private void FireAttack_Enter()
     {
-        if(_isDeath != true)
+        if(StageManager.Instance.IsDeath != true)
         {
             _stateChangeDelay = 3f;
             BossAttackMotion("FireAttackCoroutine");
@@ -173,7 +174,7 @@ public class Boss : MonoBehaviour
 
     private void HandAttack_Enter()
     {
-        if(_isDeath != true)
+        if(StageManager.Instance.IsDeath != true)
         {
             _stateChangeDelay = 3f;
             StartCoroutine("HandAttackCoroutine");
@@ -182,7 +183,7 @@ public class Boss : MonoBehaviour
 
     private void Death_Enter()
     {
-        _isDeath = true;
+        StageManager.Instance.IsDeath = true;
 
         CameraManager.Instance.ShakeCam(40f, 0.5f);
 
@@ -260,7 +261,6 @@ public class Boss : MonoBehaviour
             ExplosionAttack explosionAtk = PoolManager.Instance.Pop("ExplosionAttack") as ExplosionAttack;
             explosionAtk.transform.position = new Vector3(0, i);
             yield return new WaitForSeconds(0.3f);
-            if (_isDeath) break;
             PoolManager.Instance.Push(FindObjectOfType<ExplosionAttack>());
         }
     }

@@ -21,15 +21,12 @@ public class Enemy : PoolableMono
     private int _startAngle = 0;
     private int _endAngle = 360;
 
-    private Boss _bossScript;
-
     private void OnEnable()
     {
         isActive = true;
         _enemySprite = GetComponent<SpriteRenderer>();
         _playerTrm = GameObject.Find("Player").GetComponent<Transform>();
         _anim = GetComponent<Animator>();
-        _bossScript = GameObject.Find("DemonBoss").GetComponent<Boss>();
         _enemyExplosion = GetComponent<AudioSource>();
     }
 
@@ -44,7 +41,7 @@ public class Enemy : PoolableMono
         {
             _enemySprite.flipX = transform.position.x > 0 ? true : false;
 
-            if (isActive && _bossScript.IsDeath != true)
+            if (isActive && StageManager.Instance.IsDeath != true)
             {
                 EnemyMove();
             }
@@ -86,7 +83,7 @@ public class Enemy : PoolableMono
         {
             _enemyExplosion.Play();
 
-            if (!_bossScript.IsDeath)
+            if (!StageManager.Instance.IsDeath)
             {
                 StartCoroutine(MakeBullet());
              }

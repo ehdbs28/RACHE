@@ -41,6 +41,8 @@ public class StageManager : MonoBehaviour
 
         get => _isGameStart;
     }
+    private bool _isDeath = false;
+    public bool IsDeath { get => _isDeath; set => _isDeath = value; }
 
     private Sequence seq;
 
@@ -59,11 +61,11 @@ public class StageManager : MonoBehaviour
         _blackPanelImg = _blackImage.GetComponent<Image>();
 
         StageStart();
-        CameraManager.Instance.BossToPlayer(()=>
+        /*CameraManager.Instance.BossToPlayer(()=>
         {
             _isGameStart = true;
             Debug.Log(IsGameStart);
-        });
+        });*/
     }
 
     private void Update()

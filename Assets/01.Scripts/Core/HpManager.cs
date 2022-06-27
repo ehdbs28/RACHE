@@ -11,7 +11,6 @@ public class HpManager : MonoBehaviour
     private Slider _playerHP;
     private Slider _bossHp;
     private Animator _anim;
-    private Boss _bossScript;
 
     private float _bossMaxHP = 100;
     private float _bossCurrentHP;
@@ -26,7 +25,6 @@ public class HpManager : MonoBehaviour
         _anim = GameObject.Find("Player").GetComponent<Animator>();
         _playerHP = GameObject.Find("Canvas/PlayerHp").GetComponent<Slider>();
         _bossHp = GameObject.Find("Canvas/BossHp").GetComponent<Slider>();
-        _bossScript = GameObject.Find("DemonBoss").GetComponent<Boss>();
     }
 
     private void Start()
@@ -52,7 +50,7 @@ public class HpManager : MonoBehaviour
         
         if(_bossCurrentHP <= 0)
         {
-            _bossScript.ChangeBossDeath();
+            StageManager.Instance.IsDeath = true;
         }
     }
 
