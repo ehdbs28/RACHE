@@ -21,19 +21,19 @@ public class CameraManager : MonoBehaviour
 
         _cmRigPerlin = _cmRigCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
-        _bossTrm = GameObject.Find("DemonBoss").GetComponent<Transform>();
+        //_bossTrm = GameObject.Find("DemonBoss").GetComponent<Transform>();
         _playerTrm = GameObject.Find("Player").GetComponent<Transform>();
     }
 
-    public void BossToPlayer(Action OnComplete = null)
+    public void BossToPlayer(Transform bossTrm, Action OnComplete = null)
     {
-        StartCoroutine(BossToPlayerCoroutine(OnComplete));
+        StartCoroutine(BossToPlayerCoroutine(bossTrm,OnComplete));
     }
 
-    IEnumerator BossToPlayerCoroutine(Action OnComplete = null)
+    IEnumerator BossToPlayerCoroutine(Transform bossTrm, Action OnComplete = null)
     {
         yield return new WaitForSecondsRealtime(1f);
-        _cmRigCam.Follow = _bossTrm;
+        _cmRigCam.Follow = bossTrm;
         yield return new WaitForSecondsRealtime(2f);
         _cmRigCam.Follow = _playerTrm;
         OnComplete?.Invoke();

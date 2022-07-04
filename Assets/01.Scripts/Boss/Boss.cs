@@ -54,7 +54,7 @@ public class Boss : MonoBehaviour
         _anim = GetComponent<Animator>();
         _playerTrm = GameObject.Find("Player").GetComponent<Transform>();
 
-        CameraManager.Instance.BossToPlayer(() =>
+        CameraManager.Instance.BossToPlayer(transform, () =>
         {
             StageManager.Instance.IsGameStart = true;
         });
